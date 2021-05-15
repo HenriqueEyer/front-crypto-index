@@ -58,7 +58,7 @@ const UpdateCurriencies = () => {
     <div className="flex h-screen items-center justify-center align-center bg-gray-200">
       <div className="w-full max-w-md">
         <div className="flex flex-col items-center space-y-7 px-5 sm:px-10 md:px-20 py-14 mb-36 bg-white rounded-md">
-          <Link to="/currency">Voltar</Link>
+          <Link className="flex flex-col mr-auto rounded-md py-2 px-4 bg-green-100 hover:bg-green-500 justify-self-start"  to="/currency">Voltar</Link>
           <div className="flex flex-col space-y-2">
             <label className="pl-3">
               Moeda
