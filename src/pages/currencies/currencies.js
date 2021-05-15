@@ -1,14 +1,14 @@
-import { useState, useContext } from 'react';
-import { CurrencyContext } from '../../context';
-import MessageNotLogged from '../../components/message-not-logged';
-import { Link } from 'react-router-dom';
-import Currency from '../../components/currency';
-import Loading from '../../components/loading';
-import MessageError from '../../components/message-error';
+import { useState, useContext } from 'react'
+import { CurrencyContext } from '../../context'
+import MessageNotLogged from '../../components/message-not-logged'
+import { Link } from 'react-router-dom'
+import Currency from '../../components/currency'
+import Loading from '../../components/loading'
+import MessageError from '../../components/message-error'
 
 const Curriencies = () => {
-  const { currencies, error, loading, login } = useContext(CurrencyContext);
-  const [amount, setAmount] = useState(1);
+  const { currencies, error, loading, login } = useContext(CurrencyContext)
+  const [amount, setAmount] = useState(1)
 
   const handleAmount = (e) => {
     const { value } = e.target
@@ -17,12 +17,12 @@ const Curriencies = () => {
     } else {
       setAmount(0)
     }
-  };
+  }
 
-  if (!login.isLogged) return <MessageNotLogged />;
-  if (loading) return <Loading />;
-  if (error.isExist) return <MessageError error={error} />;
-  const arrayCurrency = ['USD', 'BRL', 'EUR', 'CAD'];
+  if (!login.isLogged) return <MessageNotLogged />
+  if (loading) return <Loading />
+  if (error.isExist) return <MessageError error={error} />
+  const arrayCurrency = ['USD', 'BRL', 'EUR', 'CAD']
   return (
     <div className="flex h-screen items-center justify-center align-center bg-gray-200">
       <div className="w-auto h-auto">
@@ -42,7 +42,7 @@ const Curriencies = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Curriencies;
+export default Curriencies

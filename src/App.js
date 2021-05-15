@@ -1,9 +1,9 @@
-import React from 'react';
-import Login from './pages/login/login';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { Provider } from './context/index';
+import React from 'react'
+import Login from './pages/login/login'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import { Provider } from './context/index'
 import Curriencies from './pages/currencies/currencies'
-import UpdateCurriencies from './pages/update/update-curriencies';
+import UpdateCurriencies from './pages/update/update-curriencies'
 
 function App() {
   return (
@@ -16,7 +16,7 @@ function App() {
           </Switch>
         </Router>
     </Provider>
-  );
+  )
 }
 
-export default App;
+export default App

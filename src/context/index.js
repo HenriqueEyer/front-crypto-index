@@ -1,14 +1,14 @@
-import React, { useState, createContext } from 'react';
-import { useFetch } from '../hooks/useFetch';
-import { useLogin } from '../hooks/useLogin';
+import React, { useState, createContext } from 'react'
+import { useFetch } from '../hooks/useFetch'
+import { useLogin } from '../hooks/useLogin'
 
-const CurrencyContext = createContext();
+const CurrencyContext = createContext()
 
 const CurrencyProvider = ({ children }) => {
-  const [currencies, setCurrencies] = useState();
-  const [needUpdate, setNeedUpdate] = useState(false);
-  const token = localStorage.getItem('token');
-  const { login, setLogin } = useLogin(token);
+  const [currencies, setCurrencies] = useState()
+  const [needUpdate, setNeedUpdate] = useState(false)
+  const token = localStorage.getItem('token')
+  const { login, setLogin } = useLogin(token)
 
   const { error, loading } = useFetch(
     'http://localhost:3001/api/crypto/btc',
@@ -16,7 +16,7 @@ const CurrencyProvider = ({ children }) => {
     setCurrencies,
     !currencies || needUpdate,
     setNeedUpdate
-  );
+  )
 
 
   console.log('currencies', currencies)
@@ -29,14 +29,14 @@ const CurrencyProvider = ({ children }) => {
     needUpdate,
     login,
     setLogin
-  };
+  }
 
 
   return (
     <CurrencyContext.Provider value={context}>
       {children}
     </CurrencyContext.Provider>
-  );
-};
+  )
+}
 
-export { CurrencyContext, CurrencyProvider as Provider };
+export { CurrencyContext, CurrencyProvider as Provider }

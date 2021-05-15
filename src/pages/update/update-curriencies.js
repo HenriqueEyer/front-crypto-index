@@ -1,13 +1,13 @@
-import { useContext, useEffect, useState } from 'react';
-import { CurrencyContext } from '../../context';
-import MessageNotLogged from '../../components/message-not-logged';
-import { Link, Redirect } from 'react-router-dom';
-import { useForm } from '../../hooks/useForm';
-import { fetchApiUpdate } from '../../service/fetchApi';
-import ActualCurruency from '../../components/getActualCurrency';
-import Loading from '../../components/loading';
-import MessageError from '../../components/message-error';
-import NotificationError from '../../components/notification-error';
+import { useContext, useEffect, useState } from 'react'
+import { CurrencyContext } from '../../context'
+import MessageNotLogged from '../../components/message-not-logged'
+import { Link, Redirect } from 'react-router-dom'
+import { useForm } from '../../hooks/useForm'
+import { fetchApiUpdate } from '../../service/fetchApi'
+import ActualCurruency from '../../components/getActualCurrency'
+import Loading from '../../components/loading'
+import MessageError from '../../components/message-error'
+import NotificationError from '../../components/notification-error'
 
 const initialValues = {
   currency: {
@@ -18,39 +18,39 @@ const initialValues = {
     value: 1,
     valid: true
   }
-};
+}
 
 const onHandleValue = (e, handleChange) => {
   const { value } = e.target
   if (Number(value)) {
-    e.target.value = Number(value);
-    handleChange(e);
+    e.target.value = Number(value)
+    handleChange(e)
   } else {
-    e.target.value = '';
-    handleChange(e);
+    e.target.value = ''
+    handleChange(e)
   }
 }
 
 const UpdateCurriencies = () => {
-  const { currencies, error, loading, setNeedUpdate, needUpdate, login } = useContext(CurrencyContext);
-  const [values, handleChange] = useForm(initialValues);
-  const [response, setResponse] = useState({ data: '', loading: false, error: false });
-  const [messageError, setMessageError] = useState('');
+  const { currencies, error, loading, setNeedUpdate, needUpdate, login } = useContext(CurrencyContext)
+  const [values, handleChange] = useForm(initialValues)
+  const [response, setResponse] = useState({ data: '', loading: false, error: false })
+  const [messageError, setMessageError] = useState('')
 
-  const arrayCurrency = ['BRL', 'EUR', 'CAD'];
-  const { value, currency } = values;
-  const isFieldsValid = currency.valid && value.valid;
-  const formatBodyRequest = { currency: currency.value, value: value.value };
+  const arrayCurrency = ['BRL', 'EUR', 'CAD']
+  const { value, currency } = values
+  const isFieldsValid = currency.valid && value.valid
+  const formatBodyRequest = { currency: currency.value, value: value.value }
 
   useEffect(() => {
     if (response.data === 'Valor alterado com sucesso!') {
-      setNeedUpdate(true);
+      setNeedUpdate(true)
     } else {
-      setMessageError(response.data);
+      setMessageError(response.data)
     }
-  }, [response.data, setNeedUpdate]);
+  }, [response.data, setNeedUpdate])
 
-  if (!login.isLogged) return <MessageNotLogged />;
+  if (!login.isLogged) return <MessageNotLogged />
   if (loading) return <Loading />
   if (error.isExist) return <MessageError error={error} />
   if (needUpdate) return <Redirect to="/currency" />
@@ -90,6 +90,6 @@ const UpdateCurriencies = () => {
       </div>
     </div>
   )
-};
+}
 
-export default UpdateCurriencies;
+export default UpdateCurriencies

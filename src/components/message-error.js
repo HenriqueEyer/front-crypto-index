@@ -32,7 +32,7 @@ const MessageError = ({ error }) => {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default MessageError;
+export default MessageError

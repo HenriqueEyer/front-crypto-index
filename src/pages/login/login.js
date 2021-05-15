@@ -1,9 +1,9 @@
-import { useContext, useEffect, useState } from 'react';
-import { Redirect } from 'react-router';
-import NotificationError from '../../components/notification-error';
-import { CurrencyContext } from '../../context';
-import { useForm } from '../../hooks/useForm';
-import { fetchApiLogin } from '../../service/fetchApi';
+import { useContext, useEffect, useState } from 'react'
+import { Redirect } from 'react-router'
+import NotificationError from '../../components/notification-error'
+import { CurrencyContext } from '../../context'
+import { useForm } from '../../hooks/useForm'
+import { fetchApiLogin } from '../../service/fetchApi'
 
 
 const initialValues = {
@@ -15,31 +15,31 @@ const initialValues = {
     value: '',
     valid: false
   }
-};
+}
 
 const Login = () => {
   const { setLogin } = useContext(CurrencyContext)
-  const [values, handleChange] = useForm(initialValues);
-  const [response, setResponse] = useState({ data: '', loading: false, error: false });
-  const [goRedirect, setGoRedirect] = useState(false);
-  const [messageError, setMessageError] = useState('');
+  const [values, handleChange] = useForm(initialValues)
+  const [response, setResponse] = useState({ data: '', loading: false, error: false })
+  const [goRedirect, setGoRedirect] = useState(false)
+  const [messageError, setMessageError] = useState('')
 
   useEffect(() => {
     if (response.data !== '') {
       if (!response.error) {
-        localStorage.setItem('token', response.data);
-        setLogin({isLogged: true, token: response.data});
-        setGoRedirect(true);
+        localStorage.setItem('token', response.data)
+        setLogin({isLogged: true, token: response.data})
+        setGoRedirect(true)
       } else {
-        setMessageError(response.data);
-        setResponse({ data: '', loading: false, error: false });
+        setMessageError(response.data)
+        setResponse({ data: '', loading: false, error: false })
       }
     }
-  }, [response.data, response.error, setLogin]);
+  }, [response.data, response.error, setLogin])
 
-  const isFieldsValid = values.password.valid && values.email.valid;
-  const formatBodyRequest = { email: values.email.value, password: values.password.value };
-  if (goRedirect) return <Redirect to='/currency' />;
+  const isFieldsValid = values.password.valid && values.email.valid
+  const formatBodyRequest = { email: values.email.value, password: values.password.value }
+  if (goRedirect) return <Redirect to='/currency' />
   return (
     <div className="flex h-screen items-center justify-center align-center bg-gray-200">
       <div className="w-full max-w-md">
@@ -72,7 +72,7 @@ const Login = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Login;
+export default Login

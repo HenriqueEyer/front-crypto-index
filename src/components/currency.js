@@ -1,6 +1,6 @@
 const Currency = (props) => {
-  const { code, rate, amount } = props;
-  const formatValue = (rate * amount).toLocaleString('pt-BR');
+  const { code, rate, amount } = props
+  const formatValue = (rate * amount).toLocaleString('pt-BR')
   return (
     <div className="">
       <p>{code}</p>
@@ -8,7 +8,7 @@ const Currency = (props) => {
         {formatValue}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Currency;
+export default Currency

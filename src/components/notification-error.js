@@ -5,7 +5,7 @@ const NotificationError = (props) =>  {
       <p>{message}</p>
       <button className="p-3 text-xl" onClick={() =>resetMessage()}>X</button>
     </div>
-  );
-};
+  )
+}
 
-export default NotificationError;
+export default NotificationError

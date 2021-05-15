@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'
 
 const MessageNotLogged = () => {
   return (
@@ -10,7 +10,7 @@ const MessageNotLogged = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default MessageNotLogged;
+export default MessageNotLogged

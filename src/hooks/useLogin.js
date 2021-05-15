@@ -1,16 +1,15 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react'
 
 export const useLogin = (token) => {
-  const [login, setLogin] = useState({ token: null, isLogged: false });
+  const [login, setLogin] = useState({ token: null, isLogged: false })
 
   useEffect(() => {
     if (!token) {
-      setLogin({ token: null, isLogged: false });
+      setLogin({ token: null, isLogged: false })
     } else {
-      setLogin({ token: token, isLogged: true });
+      setLogin({ token: token, isLogged: true })
     }
+  }, [token])
 
-  }, [token]);
-
-  return { login, setLogin };
+  return { login, setLogin }
 }

@@ -1,8 +1,8 @@
-import { useState } from 'react';
-import { isValid } from '../service/validators';
+import { useState } from 'react'
+import { isValid } from '../service/validators'
 
 export const useForm = (initialValues) => {
-  const [values, setValues] = useState(initialValues);
+  const [values, setValues] = useState(initialValues)
 
   return [
     values,
@@ -14,5 +14,5 @@ export const useForm = (initialValues) => {
         valid: isValid(e.target.name, e.target.value)
       }
     })
-  }];
-};
+  }]
+}

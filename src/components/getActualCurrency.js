@@ -1,13 +1,13 @@
 
 const getActualCurrency = (currencies, selectValue) => {
-  const { USD: { rate_float } } = currencies;
-  return (currencies[selectValue].rate_float / rate_float).toLocaleString('pt-br', { style: 'currency', currency: 'BRL' });;
+  const { USD: { rate_float } } = currencies
+  return (currencies[selectValue].rate_float / rate_float).toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })
 }
 
 const ActualCurruency = ({ currencies, selectValue }) => (
   <div>
     {getActualCurrency(currencies, selectValue)}
   </div>
-);
+)
 
-export default ActualCurruency;
+export default ActualCurruency
