@@ -21,16 +21,16 @@ export const useFetch = (url, token, setCallBack, needFetch, setNeedFetch) => {
           }
         })
         .then((res) => {
-          if(res.status === 200){
+          if (res.status === 200) {
             setCallBack(res.data.data.bpi)
             setNeedFetch(false)
-            setState({ loading: false, error: {status: '' , message: '', isExist: false} })
+            setState({ loading: false, error: { status: '', message: '', isExist: false } })
           } else {
-            setState({ loading: false, error: {status: res.status, message: res.data.message, isExist: true}  })
+            setState({ loading: false, error: { status: res.status, message: res.data.message, isExist: true } })
             setNeedFetch(false)
-          } 
+          }
         }).catch(() => {
-          setState({ loading: false, error: {status: 500, message: 'Serviço indisponível, tentar novamente ou outro horário!', isExist: true} })
+          setState({ loading: false, error: { status: 500, message: 'Serviço indisponível, tentar novamente ou outro horário!', isExist: true } })
           setNeedFetch(false)
         })
     }
