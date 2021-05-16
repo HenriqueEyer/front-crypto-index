@@ -90,7 +90,7 @@ describe('Currency Page', () => {
     return container
   }
 
-  test('should render page error with not have token', async () => {
+  test('should render page currency', async () => {
     jest.spyOn(localStorage, 'getItem').mockReturnValue('token_valid')
     fetchMock.mock('http://localhost:3001/api/crypto/btc', {
       body: bodyMock,
@@ -176,5 +176,17 @@ describe('Currency Page', () => {
     expect(inputBTC.value).toBe('2');
     fireEvent.change(inputBTC, { target: { value: '-2' } })
     expect(inputBTC.value).toBe('0');
+  })
+
+  test('should check link to page of updates', async () => {
+    jest.spyOn(localStorage, 'getItem').mockReturnValue('Valido')
+    fetchMock.mock('http://localhost:3001/api/crypto/btc', {
+      body: bodyMock,
+      status: 200
+    })
+    const { getByText } = renderCurrency()
+    await waitForElementToBeRemoved(getByText('Carregando!'))
+    fireEvent.click(getByText('Atualizar valor monetário'))
+    expect(getByText('Novo Valor')).toBeInTheDocument()
   })
 })
