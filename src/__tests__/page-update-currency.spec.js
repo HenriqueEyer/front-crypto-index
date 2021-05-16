@@ -1,5 +1,5 @@
 import React from 'react';
-import { cleanup, fireEvent, render, waitForElementToBeRemoved } from '@testing-library/react';
+import { waitFor, cleanup, fireEvent, render, waitForElementToBeRemoved } from '@testing-library/react';
 import fetchMock from 'fetch-mock';
 import { createMemoryHistory } from 'history'
 import { Provider } from '../context'
@@ -161,6 +161,71 @@ describe('Update Page', () => {
     await expect(getByText('Carregando')).toBeInTheDocument()
     await waitForElementToBeRemoved(getByText('Novo Valor'))
     expect(getByText('Atualizar valor monetário')).toBeInTheDocument()
+  })
+
+  test('should check if show message if fail in fetch api', async () => {
+    jest.spyOn(localStorage, 'getItem').mockReturnValue('Valido')
+    fetchMock.get('http://localhost:3001/api/crypto/btc', {
+      body: bodyMock,
+      status: 200
+    })
+    fetchMock.post('http://localhost:3001/api/crypto/btc', {
+      throws: { error: 'Serviço indisponivel' },
+    }, { overwriteRoutes: false })
+
+    const { getByText, queryByText } = renderUpdateCurrency()
+    await waitForElementToBeRemoved(getByText('Carregando!'))
+    const btnAtualizar = getByText('Atualizar')
+    fireEvent.click(btnAtualizar)
+    await waitFor(() => expect(getByText('Serviço indisponível favor tentar mais tarde!')).toBeInTheDocument())
+    fireEvent.click(getByText('X'))
+    expect(queryByText('Serviço indisponível favor tentar mais tarde!')).not.toBeInTheDocument()
+  })
+
+  test('should show message of error', async () => {
+    jest.spyOn(localStorage, 'getItem').mockReturnValue('Valido')
+    fetchMock.get('http://localhost:3001/api/crypto/btc', {
+      body: bodyMock,
+      status: 200
+    })
+    fetchMock.post('http://localhost:3001/api/crypto/btc', {
+      body: { message: 'Invalido token' },
+    }, { overwriteRoutes: false })
+
+    const { getByText, queryByText } = renderUpdateCurrency()
+    await waitForElementToBeRemoved(getByText('Carregando!'))
+    const btnAtualizar = getByText('Atualizar')
+    fireEvent.click(btnAtualizar)
+    await waitFor(() => expect(getByText('Invalido token')).toBeInTheDocument())
+    fireEvent.click(getByText('X'))
+    expect(queryByText('Invalido token')).not.toBeInTheDocument()
+  })
+
+  test('should check if ipt value just accept integer and bigger than 0', async () => {
+    jest.spyOn(localStorage, 'getItem').mockReturnValue('Valido')
+    fetchMock.get('http://localhost:3001/api/crypto/btc', {
+      body: bodyMock,
+      status: 200
+    })
+    fetchMock.post('http://localhost:3001/api/crypto/btc', {
+      body: { message: 'Invalido token' },
+    }, { overwriteRoutes: false })
+
+    const { getByText, getByLabelText } = renderUpdateCurrency()
+    await waitForElementToBeRemoved(getByText('Carregando!'))
+    const btnAtualizar = getByText('Atualizar')
+    const iptValue = getByLabelText('Novo Valor')
+    fireEvent.change(iptValue, { target: { value: 'a' } })
+    expect(iptValue.value).toBe('')
+    fireEvent.change(iptValue, { target: { value: 0 } })
+    expect(iptValue.value).toBe('')
+    fireEvent.change(iptValue, { target: { value: '5' } })
+    expect(iptValue.value).toBe('5')
+    expect(btnAtualizar.disabled).toBe(false)
+    fireEvent.change(iptValue, { target: { value: 0.5 } })
+    expect(btnAtualizar.disabled).toBe(true)
+    fireEvent.change(iptValue, { target: { value: '5' } })
+    expect(btnAtualizar.disabled).toBe(false)
   })
 })
 
