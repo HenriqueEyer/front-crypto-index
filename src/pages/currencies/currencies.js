@@ -12,7 +12,7 @@ const Curriencies = () => {
 
   const handleAmount = (e) => {
     const { value } = e.target
-    if (Number(value)) {
+    if (Number(value) && Number(value) >= 0) {
       setAmount(Number(value))
     } else {
       setAmount(0)

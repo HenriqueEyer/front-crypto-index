@@ -1,5 +1,5 @@
 import React from 'react';
-import { cleanup, fireEvent, render, waitForElementToBeRemoved, waitFor } from '@testing-library/react';
+import { cleanup, fireEvent, render, waitForElementToBeRemoved } from '@testing-library/react';
 import fetchMock from 'fetch-mock';
 import { createMemoryHistory } from 'history'
 import { Provider } from '../context'
@@ -157,5 +157,24 @@ describe('Currency Page', () => {
     const inputBTC = getByText('BTC').nextSibling
     fireEvent.change(inputBTC, { target: { value: 10 } })
     expect(getByText('R$ 200.000,00')).toBeInTheDocument()
+  })
+
+  test('should check if input not accept other value different of number and bigger or equal to zero', async () => {
+    jest.spyOn(localStorage, 'getItem').mockReturnValue('Valido')
+    fetchMock.mock('http://localhost:3001/api/crypto/btc', {
+      body: bodyMock,
+      status: 200
+    })
+    const { getByText } = renderCurrency()
+    await waitForElementToBeRemoved(getByText('Carregando!'))
+    expect(getByText(bodyMock.data.bpi.CAD.code)).toBeInTheDocument()
+    expect(getByText('R$ 20.000,00')).toBeInTheDocument()
+    const inputBTC = getByText('BTC').nextSibling
+    fireEvent.change(inputBTC, { target: { value: 'a' } })
+    expect(inputBTC.value).toBe('0');
+    fireEvent.change(inputBTC, { target: { value: '2' } })
+    expect(inputBTC.value).toBe('2');
+    fireEvent.change(inputBTC, { target: { value: '-2' } })
+    expect(inputBTC.value).toBe('0');
   })
 })
