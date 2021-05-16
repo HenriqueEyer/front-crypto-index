@@ -1,10 +1,30 @@
 import React from 'react';
-import { fireEvent, render, screen, waitFor, waitForElementToBeRemoved } from '@testing-library/react';
+import { cleanup, fireEvent, render, waitForElementToBeRemoved, waitFor } from '@testing-library/react';
 import fetchMock from 'fetch-mock';
+import { createMemoryHistory } from 'history'
 import { Provider } from '../context'
-import { MemoryRouter } from "react-router-dom"
+import { MemoryRouter, Router } from "react-router-dom"
 import App from '../App';
 import 'jest-localstorage-mock';
+
+
+jest.mock('react-router-dom', () => {
+  const originalModule = jest.requireActual('react-router-dom')
+  return {
+    ...originalModule,
+    BrowserRouter: ({ children }) => (<div> {children} </div>),
+  }
+});
+
+function renderWithRouter(
+  ui,
+  { route = '/', history = createMemoryHistory({ initialEntries: [route] }) } = {},
+) {
+  return {
+    ...render(<Router history={history}>{ui}</Router>),
+    history,
+  };
+}
 
 
 const bodyMock = {
@@ -51,20 +71,24 @@ const bodyMock = {
 describe('Login Page', () => {
   afterEach(() => {
     fetchMock.restore()
+    jest.clearAllMocks()
   })
 
+  beforeEach(() => { cleanup() })
+  afterEach(() => { cleanup() })
+
   const renderLogin = () => {
-    render(
+    const container = renderWithRouter(
       <Provider>
         <MemoryRouter initialEntries={['/login']}>
           <App />
         </MemoryRouter>
       </Provider>
     )
-    const { getByText } = screen
+    const { getByText } = container
     const linkLogin = getByText('Login')
     fireEvent.click(linkLogin)
-    return screen
+    return container
   }
 
   test('should render page Login', () => {
@@ -125,7 +149,7 @@ describe('Login Page', () => {
       body: bodyMock,
       status: 200
     })
-    const getItemSpy = jest.spyOn(localStorage, 'setItem')
+    const setItemSpy = jest.spyOn(localStorage, 'setItem')
 
     const { getByLabelText, getByText, queryByText } = renderLogin()
     const iptEmail = getByLabelText('Email')
@@ -140,7 +164,76 @@ describe('Login Page', () => {
     await expect(getByText('Carregando')).toBeInTheDocument()
     await waitForElementToBeRemoved(getByText('Login'))
     expect(queryByText('Login')).not.toBeInTheDocument()
-    expect(getItemSpy).toHaveBeenCalledWith('token', 'any_token')
+    expect(setItemSpy).toHaveBeenCalledWith('token', 'any_token')
+  });
+
+  test('should return message of error if request invalid', async () => {
+    fetchMock.mock('http://localhost:3001/api/login', {
+      body: { message: 'Any Message' },
+      status: 400
+    })
+
+    const setItemSpy = jest.spyOn(localStorage, 'setItem')
+    const { getByLabelText, getByText } = renderLogin()
+    const iptEmail = getByLabelText('Email')
+    const iptPassword = getByLabelText('Senha')
+    const btn = getByText('Entrar')
+    fireEvent.change(iptEmail, { target: { value: 'valid@email.com' } })
+    fireEvent.change(iptPassword, { target: { value: '123456' } })
+    fireEvent.click(btn)
+    expect(setItemSpy).not.toBeCalled()
+    await waitFor(() => expect(getByText('Any Message')).toBeInTheDocument())
+  });
+
+  test('should clear message if clicked on button', async () => {
+    fetchMock.mock('http://localhost:3001/api/login', {
+      body: { message: 'Any Message' },
+      status: 400
+    })
+    const setItemSpy = jest.spyOn(localStorage, 'setItem')
+    const { getByLabelText, getByText, queryByText } = renderLogin()
+    const iptEmail = getByLabelText('Email')
+    const iptPassword = getByLabelText('Senha')
+    const btn = getByText('Entrar')
+    fireEvent.change(iptEmail, { target: { value: 'valid@email.com' } })
+    fireEvent.change(iptPassword, { target: { value: '123456' } })
+    fireEvent.click(btn)
+    expect(setItemSpy).not.toBeCalled()
+    await waitFor(() => expect(getByText('Any Message')).toBeInTheDocument())
+    fireEvent.click(getByText('X'))
+    expect(queryByText('Any Message')).not.toBeInTheDocument()
+  });
+
+  test('should return message of error if throws', async () => {
+    fetchMock.mock('http://localhost:3001/api/login',
+      { throws: { message: 'network error' } })
+    const setItemSpy = jest.spyOn(localStorage, 'setItem')
+    const { getByLabelText, getByText } = renderLogin()
+    const iptEmail = getByLabelText('Email')
+    const iptPassword = getByLabelText('Senha')
+    const btn = getByText('Entrar')
+    fireEvent.change(iptEmail, { target: { value: 'valid@email.com' } })
+    fireEvent.change(iptPassword, { target: { value: '123456' } })
+    fireEvent.click(btn)
+    expect(setItemSpy).not.toBeCalled()
+    await waitFor(() => expect(getByText('Serviço indisponível favor tentar mais tarde!')).toBeInTheDocument())
+  });
+
+  test('should clear the message with error on click', async () => {
+    fetchMock.mock('http://localhost:3001/api/login',
+      { throws: { message: 'network error' } })
+    const setItemSpy = jest.spyOn(localStorage, 'setItem')
+    const { getByLabelText, getByText, queryByText } = renderLogin()
+    const iptEmail = getByLabelText('Email')
+    const iptPassword = getByLabelText('Senha')
+    const btn = getByText('Entrar')
+    fireEvent.change(iptEmail, { target: { value: 'valid@email.com' } })
+    fireEvent.change(iptPassword, { target: { value: '123456' } })
+    fireEvent.click(btn)
+    expect(setItemSpy).not.toBeCalled()
+    await waitFor(() => expect(getByText('Serviço indisponível favor tentar mais tarde!')).toBeInTheDocument())
+    fireEvent.click(getByText('X'))
+    expect(queryByText('Any Message')).not.toBeInTheDocument()
   });
 })
 

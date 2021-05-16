@@ -28,7 +28,7 @@ const Login = () => {
     if (response.data !== '') {
       if (!response.error) {
         localStorage.setItem('token', response.data)
-        setLogin({isLogged: true, token: response.data})
+        setLogin({ isLogged: true, token: response.data })
         setGoRedirect(true)
       } else {
         setMessageError(response.data)
@@ -36,7 +36,6 @@ const Login = () => {
       }
     }
   }, [response.data, response.error, setLogin])
-
   const isFieldsValid = values.password.valid && values.email.valid
   const formatBodyRequest = { email: values.email.value, password: values.password.value }
   if (goRedirect) return <Redirect to='/currency' />
