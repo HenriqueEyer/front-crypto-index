@@ -1,11 +1,11 @@
-import React from 'react';
-import { cleanup, fireEvent, render, waitForElementToBeRemoved, waitFor } from '@testing-library/react';
-import fetchMock from 'fetch-mock';
+import React from 'react'
+import { cleanup, fireEvent, render, waitForElementToBeRemoved, waitFor } from '@testing-library/react'
+import fetchMock from 'fetch-mock'
 import { createMemoryHistory } from 'history'
 import { Provider } from '../context'
 import { MemoryRouter, Router } from "react-router-dom"
-import App from '../App';
-import 'jest-localstorage-mock';
+import App from '../App'
+import 'jest-localstorage-mock'
 
 jest.mock('react-router-dom', () => {
   const originalModule = jest.requireActual('react-router-dom')
@@ -13,7 +13,7 @@ jest.mock('react-router-dom', () => {
     ...originalModule,
     BrowserRouter: ({ children }) => (<div> {children} </div>),
   }
-});
+})
 
 function renderWithRouter(
   ui,
@@ -22,7 +22,7 @@ function renderWithRouter(
   return {
     ...render(<Router history={history}>{ui}</Router>),
     history,
-  };
+  }
 }
 
 
@@ -94,13 +94,13 @@ describe('Login Page', () => {
     const { getByText } = renderLogin()
     expect(getByText('Login')).toBeInTheDocument()
     expect(getByText('Login').tagName).toBe('H1')
-  });
+  })
 
   test('should button start disabled', () => {
     const { getByText } = renderLogin()
     expect(getByText('Entrar')).toBeInTheDocument()
     expect(getByText('Entrar').disabled).toBe(true)
-  });
+  })
 
 
   test('should button disabled false if email and password valid', () => {
@@ -113,7 +113,7 @@ describe('Login Page', () => {
     fireEvent.change(iptPassword, { target: { value: '123456' } })
     expect(btn).toBeInTheDocument()
     expect(btn.disabled).toBe(false)
-  });
+  })
 
   test('should button disabled true if email invalid', () => {
     const { getByLabelText, getByText } = renderLogin()
@@ -125,7 +125,7 @@ describe('Login Page', () => {
     fireEvent.change(iptPassword, { target: { value: '123456' } })
     expect(btn).toBeInTheDocument()
     expect(btn.disabled).toBe(true)
-  });
+  })
 
   test('should button disabled true if password invalid', () => {
     const { getByLabelText, getByText } = renderLogin()
@@ -137,7 +137,7 @@ describe('Login Page', () => {
     fireEvent.change(iptPassword, { target: { value: 'invalid' } })
     expect(btn).toBeInTheDocument()
     expect(btn.disabled).toBe(true)
-  });
+  })
 
   test('should button if click make a request', async () => {
     fetchMock.mock('http://localhost:3001/api/login', {
@@ -164,7 +164,7 @@ describe('Login Page', () => {
     await waitForElementToBeRemoved(getByText('Login'))
     expect(queryByText('Login')).not.toBeInTheDocument()
     expect(setItemSpy).toHaveBeenCalledWith('token', 'any_token')
-  });
+  })
 
   test('should return message of error if request invalid', async () => {
     fetchMock.mock('http://localhost:3001/api/login', {
@@ -182,7 +182,7 @@ describe('Login Page', () => {
     fireEvent.click(btn)
     expect(setItemSpy).not.toBeCalled()
     await waitFor(() => expect(getByText('Any Message')).toBeInTheDocument())
-  });
+  })
 
   test('should clear message if clicked on button', async () => {
     fetchMock.mock('http://localhost:3001/api/login', {
@@ -201,7 +201,7 @@ describe('Login Page', () => {
     await waitFor(() => expect(getByText('Any Message')).toBeInTheDocument())
     fireEvent.click(getByText('X'))
     expect(queryByText('Any Message')).not.toBeInTheDocument()
-  });
+  })
 
   test('should return message of error if throws', async () => {
     fetchMock.mock('http://localhost:3001/api/login',
@@ -216,7 +216,7 @@ describe('Login Page', () => {
     fireEvent.click(btn)
     expect(setItemSpy).not.toBeCalled()
     await waitFor(() => expect(getByText('Serviço indisponível favor tentar mais tarde!')).toBeInTheDocument())
-  });
+  })
 
   test('should clear the message with error on click', async () => {
     fetchMock.mock('http://localhost:3001/api/login',
@@ -233,6 +233,6 @@ describe('Login Page', () => {
     await waitFor(() => expect(getByText('Serviço indisponível favor tentar mais tarde!')).toBeInTheDocument())
     fireEvent.click(getByText('X'))
     expect(queryByText('Any Message')).not.toBeInTheDocument()
-  });
+  })
 })
 

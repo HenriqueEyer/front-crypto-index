@@ -22,7 +22,7 @@ export const useFetch = (url, token, setCallBack, needFetch, setNeedFetch) => {
         })
         .then((res) => {
           if (res.status === 200) {
-            setCallBack(res.data.data.bpi)
+            setCallBack(res.data.bpi)
             setNeedFetch(false)
             setState({ loading: false, error: { status: '', message: '', isExist: false } })
           } else {

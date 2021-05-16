@@ -1,10 +1,10 @@
 import { useState, useContext } from 'react'
 import { CurrencyContext } from '../../context'
-import MessageNotLogged from '../../components/message-not-logged'
+import MessageNotLogged from '../../components/MessageNotLogged'
 import { Link } from 'react-router-dom'
-import Currency from '../../components/currency'
-import Loading from '../../components/loading'
-import MessageError from '../../components/message-error'
+import Currency from '../../components/Currency'
+import Loading from '../../components/Loading'
+import MessageError from '../../components/MessageError'
 
 const Curriencies = () => {
   const { currencies, error, loading, login } = useContext(CurrencyContext)

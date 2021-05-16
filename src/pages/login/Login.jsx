@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react'
 import { Redirect } from 'react-router-dom'
-import NotificationError from '../../components/notification-error'
+import NotificationError from '../../components/NotificationError'
 import { CurrencyContext } from '../../context'
 import { useForm } from '../../hooks/useForm'
 import { fetchApiLogin } from '../../service/fetchApi'
