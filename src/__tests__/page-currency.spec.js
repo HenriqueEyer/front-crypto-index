@@ -44,27 +44,27 @@ const bodyMock = {
       },
       BTC: {
         code: 'BTC',
-        rate: '1.0000',
+        rate: '1,0000.00',
         description: 'Bitcoin',
         rate_float: 1
       },
       BRL: {
-        code: 'BTC',
+        code: 'BRL',
         rate: '1.0000',
         description: 'Bitcoin',
-        rate_float: 1
+        rate_float: 10000
       },
       EUR: {
-        code: 'BTC',
+        code: 'EUR',
         rate: '1.0000',
         description: 'Bitcoin',
-        rate_float: 1
+        rate_float: 10000
       },
       CAD: {
-        code: 'BTC',
-        rate: '1.0000',
+        code: 'CAD',
+        rate: '2.0000',
         description: 'Bitcoin',
-        rate_float: 1
+        rate_float: 20000
       }
     }
   }
@@ -99,5 +99,36 @@ describe('Currency Page', () => {
     const { getByText } = renderCurrency()
     await waitForElementToBeRemoved(getByText('Carregando!'))
     await expect(getByText('Atualizar valor monetário')).toBeInTheDocument()
+  })
+
+  test('should show message of token invalid if not have token', async () => {
+    jest.spyOn(localStorage, 'getItem').mockReturnValue(null)
+    fetchMock.mock('http://localhost:3001/api/crypto/btc', {
+      body: bodyMock,
+      status: 200
+    })
+    const { getByText } = renderCurrency()
+    await expect(getByText('Tela login')).toBeInTheDocument()
+  })
+
+  test('should show message of token invalid if not have valid token', async () => {
+    jest.spyOn(localStorage, 'getItem').mockReturnValue('invalido')
+    fetchMock.mock('http://localhost:3001/api/crypto/btc', {
+      body: { message: 'Token Invalido' },
+      status: 401
+    })
+    const { getByText } = renderCurrency()
+    await waitForElementToBeRemoved(getByText('Carregando!'))
+    await expect(getByText('Página Login')).toBeInTheDocument()
+  })
+
+  test('should show message of service invalid if happen error', async () => {
+    jest.spyOn(localStorage, 'getItem').mockReturnValue('valido')
+    fetchMock.mock('http://localhost:3001/api/crypto/btc', {
+      throws: { message: 'network error' }
+    })
+    const { getByText } = renderCurrency()
+    await waitForElementToBeRemoved(getByText('Carregando!'))
+    await expect(getByText('Serviço indisponível, tentar novamente ou outro horário!')).toBeInTheDocument()
   })
 })

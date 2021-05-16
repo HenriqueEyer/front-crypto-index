@@ -1,6 +1,6 @@
 const Currency = (props) => {
   const { code, rate, amount } = props
-  const formatValue = (rate * amount).toLocaleString('pt-BR')
+  const formatValue = (rate * amount).toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })
   return (
     <div className="">
       <p>{code}</p>
