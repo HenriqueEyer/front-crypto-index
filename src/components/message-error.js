@@ -26,9 +26,9 @@ const MessageError = ({ error }) => {
       <div className="w-auto h-auto">
         <div className="flex w-full flex-col items-center space-y-7 px-5 sm:px-10 md:px-20 py-14 mb-36 bg-white rounded-md">
           <p>{message}</p>
-        {redirectLogin
-          ? <Link className="text-center rounded-md p-2 w-6/12 bg-green-100 hover:bg-green-500" to="/login"> Página Login </Link>
-          : null}
+          {redirectLogin
+            ? <Link className="text-center rounded-md p-2 w-6/12 bg-green-100 hover:bg-green-500" to="/login"> Página Login </Link>
+            : null}
         </div>
       </div>
     </div>

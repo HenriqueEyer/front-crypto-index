@@ -7,7 +7,6 @@ import { MemoryRouter, Router } from "react-router-dom"
 import App from '../App';
 import 'jest-localstorage-mock';
 
-
 jest.mock('react-router-dom', () => {
   const originalModule = jest.requireActual('react-router-dom')
   return {

@@ -1,4 +1,4 @@
-export const fetchApiLogin = (body, setState, method = 'GET', url) => {
+export const fetchApiLogin = (body, setState, method, url) => {
   setState({ data: '', loading: true, error: false })
   fetch(url, {
     method,

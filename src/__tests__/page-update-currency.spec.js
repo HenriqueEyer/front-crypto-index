@@ -7,7 +7,6 @@ import { MemoryRouter, Router } from "react-router-dom"
 import App from '../App';
 import 'jest-localstorage-mock';
 
-
 jest.mock('react-router-dom', () => {
   const originalModule = jest.requireActual('react-router-dom')
   return {
@@ -122,6 +121,17 @@ describe('Update Page', () => {
     await expect(getByText('Página Login')).toBeInTheDocument()
   })
 
+  test('should show message error generic', async () => {
+    jest.spyOn(localStorage, 'getItem').mockReturnValue('valido')
+    fetchMock.get('http://localhost:3001/api/crypto/btc', {
+      body: { message: 'Token Invalido' },
+      status: 404
+    })
+    const { getByText } = renderUpdateCurrency()
+    await waitForElementToBeRemoved(getByText('Carregando!'))
+    await expect(getByText('Erro inesperado, favor tentar mais tarde ou realizar o login novamente!')).toBeInTheDocument()
+  })
+
   test('should show message of service invalid if happen error', async () => {
     jest.spyOn(localStorage, 'getItem').mockReturnValue('valido')
     fetchMock.get('http://localhost:3001/api/crypto/btc', {
@@ -228,7 +238,3 @@ describe('Update Page', () => {
     expect(btnAtualizar.disabled).toBe(false)
   })
 })
-
-
-    // const iptCurrency = getByLabelText('currency')
-    // const iptValue = getByLabelText('iptvalue')
