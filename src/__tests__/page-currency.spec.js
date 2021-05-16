@@ -132,7 +132,7 @@ describe('Currency Page', () => {
     await expect(getByText('Serviço indisponível, tentar novamente ou outro horário!')).toBeInTheDocument()
   })
 
-  test('should check if show the value bring of api', async () => {
+  test('should check if show the value of api brought', async () => {
     jest.spyOn(localStorage, 'getItem').mockReturnValue('Valido')
     fetchMock.mock('http://localhost:3001/api/crypto/btc', {
       body: bodyMock,
@@ -142,5 +142,20 @@ describe('Currency Page', () => {
     await waitForElementToBeRemoved(getByText('Carregando!'))
     expect(getByText(bodyMock.data.bpi.CAD.code)).toBeInTheDocument()
     expect(getByText('R$ 20.000,00')).toBeInTheDocument()
+  })
+
+  test('should check if input of BTC change values', async () => {
+    jest.spyOn(localStorage, 'getItem').mockReturnValue('Valido')
+    fetchMock.mock('http://localhost:3001/api/crypto/btc', {
+      body: bodyMock,
+      status: 200
+    })
+    const { getByText } = renderCurrency()
+    await waitForElementToBeRemoved(getByText('Carregando!'))
+    expect(getByText(bodyMock.data.bpi.CAD.code)).toBeInTheDocument()
+    expect(getByText('R$ 20.000,00')).toBeInTheDocument()
+    const inputBTC = getByText('BTC').nextSibling
+    fireEvent.change(inputBTC, { target: { value: 10 } })
+    expect(getByText('R$ 200.000,00')).toBeInTheDocument()
   })
 })
