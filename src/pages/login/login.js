@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react'
-import { Redirect } from 'react-router'
+import { Redirect } from 'react-router-dom'
 import NotificationError from '../../components/notification-error'
 import { CurrencyContext } from '../../context'
 import { useForm } from '../../hooks/useForm'

@@ -46,7 +46,6 @@ export const fetchApiUpdate = (body, setState, method, url, token) => {
       setState({ data: res.data.message, loading: false, error: false })
     })
     .catch((err) => {
-      console.log(err)
       setState({ data: 'Serviço indisponível favor tentar mais tarde!', loading: false, error: true })
     })
 }

@@ -18,8 +18,6 @@ const CurrencyProvider = ({ children }) => {
     setNeedUpdate
   )
 
-
-  console.log('currencies', currencies)
   const context = {
     currencies,
     setCurrencies,

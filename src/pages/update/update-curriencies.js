@@ -4,10 +4,11 @@ import MessageNotLogged from '../../components/message-not-logged'
 import { Link, Redirect } from 'react-router-dom'
 import { useForm } from '../../hooks/useForm'
 import { fetchApiUpdate } from '../../service/fetchApi'
-import ActualCurruency from '../../components/getActualCurrency'
+import ActualCurruency from '../../components/actual-currency'
 import Loading from '../../components/loading'
 import MessageError from '../../components/message-error'
 import NotificationError from '../../components/notification-error'
+import SelectedCurrency from '../../components/select-currency'
 
 const initialValues = {
   currency: {
@@ -41,7 +42,6 @@ const UpdateCurriencies = () => {
   const { value, currency } = values
   const isFieldsValid = currency.valid && value.valid
   const formatBodyRequest = { currency: currency.value, value: value.value }
-
   useEffect(() => {
     if (response.data === 'Valor alterado com sucesso!') {
       setNeedUpdate(true)
@@ -59,18 +59,7 @@ const UpdateCurriencies = () => {
       <div className="w-full max-w-md">
         <div className="flex flex-col items-center space-y-7 px-5 sm:px-10 md:px-20 py-14 mb-36 bg-white rounded-md">
           <Link className="flex flex-col mr-auto rounded-md py-2 px-4 bg-green-100 hover:bg-green-500 justify-self-start"  to="/currency">Voltar</Link>
-          <div className="flex flex-col space-y-2">
-            <label className="pl-3">
-              Moeda
-            </label>
-            <select className="p-2 pl-5 bg-white rounded-md border-2 focus:border-2 focus:bg-green-100" name="currency" id="currency" onChange={handleChange}>
-              {
-                arrayCurrency.map((item) => {
-                  return <option key={item} value={item}>{item}</option>
-                })
-              }
-            </select>
-          </div>
+          <SelectedCurrency arrayCurrency={arrayCurrency} handleChange={handleChange}/>
           <ActualCurruency currencies={currencies} selectValue={currency.value} />
           <div className="flex flex-col space-y-2">
             <label className="pl-3">
