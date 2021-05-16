@@ -45,4 +45,28 @@ describe('Login Page', () => {
     expect(btn).toBeInTheDocument()
     expect(btn.disabled).toBe(false)
   });
+
+  test('should button disabled true if email invalid', () => {
+    const { getByLabelText, getByText } = renderLogin()
+    const iptEmail = getByLabelText('Email')
+    const iptPassword = getByLabelText('Senha')
+    const btn = getByText('Entrar')
+
+    fireEvent.change(iptEmail, {target: {value: 'invalid'}})
+    fireEvent.change(iptPassword,{ target: {value: '123456'}})
+    expect(btn).toBeInTheDocument()
+    expect(btn.disabled).toBe(true)
+  });
+
+  test('should button disabled true if password invalid', () => {
+    const { getByLabelText, getByText } = renderLogin()
+    const iptEmail = getByLabelText('Email')
+    const iptPassword = getByLabelText('Senha')
+    const btn = getByText('Entrar')
+
+    fireEvent.change(iptEmail, {target: {value: 'valid@email.com'}})
+    fireEvent.change(iptPassword,{ target: {value: 'invalid'}})
+    expect(btn).toBeInTheDocument()
+    expect(btn.disabled).toBe(true)
+  });
 })
