@@ -79,7 +79,7 @@ describe('Update Page', () => {
   beforeEach(() => { cleanup() })
   afterEach(() => { cleanup() })
 
-  const renderCurrency = () => {
+  const renderUpdateCurrency = () => {
     const container = renderWithRouter(
       <Provider>
         <MemoryRouter initialEntries={['/currency/update']}>
@@ -92,66 +92,78 @@ describe('Update Page', () => {
 
   test('should render page update have token', async () => {
     jest.spyOn(localStorage, 'getItem').mockReturnValue('token_valid')
-    fetchMock.mock('http://localhost:3001/api/crypto/btc', {
+    fetchMock.get('http://localhost:3001/api/crypto/btc', {
       body: bodyMock,
       status: 200
     })
-    const { getByText } = renderCurrency()
-    await waitForElementToBeRemoved(getByText('Carregando!'))
-    await expect(getByText('Novo Valor')).toBeInTheDocument()
-  })
-
-  test('should render page error with not have token', async () => {
-    jest.spyOn(localStorage, 'getItem').mockReturnValue('token_valid')
-    fetchMock.mock('http://localhost:3001/api/crypto/btc', {
-      body: bodyMock,
-      status: 200
-    })
-    const { getByText } = renderCurrency()
+    const { getByText } = renderUpdateCurrency()
     await waitForElementToBeRemoved(getByText('Carregando!'))
     await expect(getByText('Novo Valor')).toBeInTheDocument()
   })
 
   test('should show message of token invalid if not have token', async () => {
     jest.spyOn(localStorage, 'getItem').mockReturnValue(null)
-    fetchMock.mock('http://localhost:3001/api/crypto/btc', {
+    fetchMock.get('http://localhost:3001/api/crypto/btc', {
       body: bodyMock,
       status: 200
     })
-    const { getByText } = renderCurrency()
+    const { getByText } = renderUpdateCurrency()
     await expect(getByText('Tela login')).toBeInTheDocument()
   })
 
   test('should show message of token invalid if not have valid token', async () => {
     jest.spyOn(localStorage, 'getItem').mockReturnValue('invalido')
-    fetchMock.mock('http://localhost:3001/api/crypto/btc', {
+    fetchMock.get('http://localhost:3001/api/crypto/btc', {
       body: { message: 'Token Invalido' },
       status: 401
     })
-    const { getByText } = renderCurrency()
+    const { getByText } = renderUpdateCurrency()
     await waitForElementToBeRemoved(getByText('Carregando!'))
     await expect(getByText('Página Login')).toBeInTheDocument()
   })
 
   test('should show message of service invalid if happen error', async () => {
     jest.spyOn(localStorage, 'getItem').mockReturnValue('valido')
-    fetchMock.mock('http://localhost:3001/api/crypto/btc', {
+    fetchMock.get('http://localhost:3001/api/crypto/btc', {
       throws: { message: 'network error' }
     })
-    const { getByText } = renderCurrency()
+    const { getByText } = renderUpdateCurrency()
     await waitForElementToBeRemoved(getByText('Carregando!'))
     await expect(getByText('Serviço indisponível, tentar novamente ou outro horário!')).toBeInTheDocument()
   })
 
   test('should check link to page currency', async () => {
     jest.spyOn(localStorage, 'getItem').mockReturnValue('Valido')
-    fetchMock.mock('http://localhost:3001/api/crypto/btc', {
+    fetchMock.get('http://localhost:3001/api/crypto/btc', {
       body: bodyMock,
       status: 200
     })
-    const { getByText } = renderCurrency()
+    const { getByText } = renderUpdateCurrency()
     await waitForElementToBeRemoved(getByText('Carregando!'))
     fireEvent.click(getByText('Voltar'))
     expect(getByText('Atualizar valor monetário')).toBeInTheDocument()
   })
+
+  test('should check if button start with disabled false and success request redirect to currency page', async () => {
+    jest.spyOn(localStorage, 'getItem').mockReturnValue('Valido')
+    fetchMock.get('http://localhost:3001/api/crypto/btc', {
+      body: bodyMock,
+      status: 200
+    })
+    fetchMock.post('http://localhost:3001/api/crypto/btc', {
+      body: { message: 'Valor alterado com sucesso!' },
+      status: 200
+    }, { overwriteRoutes: false })
+    const { getByText } = renderUpdateCurrency()
+    await waitForElementToBeRemoved(getByText('Carregando!'))
+    const btnAtualizar = getByText('Atualizar')
+    fireEvent.click(btnAtualizar)
+    await expect(getByText('Carregando')).toBeInTheDocument()
+    await waitForElementToBeRemoved(getByText('Novo Valor'))
+    expect(getByText('Atualizar valor monetário')).toBeInTheDocument()
+  })
 })
+
+
+    // const iptCurrency = getByLabelText('currency')
+    // const iptValue = getByLabelText('iptvalue')
