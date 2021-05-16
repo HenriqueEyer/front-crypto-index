@@ -44,5 +44,13 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {}
+  "jest": {
+    "resetMocks": false,
+    "setupFiles": [
+      "jest-localstorage-mock"
+    ]
+  },
+  "devDependencies": {
+    "jest-localstorage-mock": "^2.4.12"
+  }
 }
