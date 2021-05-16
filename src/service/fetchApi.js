@@ -1,4 +1,4 @@
-export const fetchApiLogin = (body, setState, method = 'GET', url) => {
+export const fetchApiLogin = (body, setState, method, url) => {
   setState({ data: '', loading: true, error: false })
   fetch(url, {
     method,
@@ -45,7 +45,7 @@ export const fetchApiUpdate = (body, setState, method, url, token) => {
     .then(res => {
       setState({ data: res.data.message, loading: false, error: false })
     })
-    .catch((err) => {
+    .catch(() => {
       setState({ data: 'Serviço indisponível favor tentar mais tarde!', loading: false, error: true })
     })
 }

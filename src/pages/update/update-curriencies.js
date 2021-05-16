@@ -58,14 +58,14 @@ const UpdateCurriencies = () => {
     <div className="flex h-screen items-center justify-center align-center bg-gray-200">
       <div className="w-full max-w-md">
         <div className="flex flex-col items-center space-y-7 px-5 sm:px-10 md:px-20 py-14 mb-36 bg-white rounded-md">
-          <Link className="flex flex-col mr-auto rounded-md py-2 px-4 bg-green-100 hover:bg-green-500 justify-self-start"  to="/currency">Voltar</Link>
-          <SelectedCurrency arrayCurrency={arrayCurrency} handleChange={handleChange}/>
+          <Link className="flex flex-col mr-auto rounded-md py-2 px-4 bg-green-100 hover:bg-green-500 justify-self-start" to="/currency">Voltar</Link>
+          <SelectedCurrency arrayCurrency={arrayCurrency} handleChange={handleChange} />
           <ActualCurruency currencies={currencies} selectValue={currency.value} />
           <div className="flex flex-col space-y-2">
-            <label className="pl-3">
+            <label htmlFor="iptvalue" className="pl-3">
               Novo Valor
             </label>
-            <input className="p-2 pl-5 rounded-md border-2 focus:border-2 focus:bg-green-100" type='text' name='value' value={value.value} onChange={(e) => onHandleValue(e, handleChange)} />
+            <input id="iptvalue" className="p-2 pl-5 rounded-md border-2 focus:border-2 focus:bg-green-100" type='text' name='value' value={value.value} onChange={(e) => onHandleValue(e, handleChange)} />
           </div>
           <button className="bg-green-600 text-white hover:opacity-75 focus:ring focus:ring-offset-1 focus:ring-indigo-300 focus:outline-none disabled:bg-gray-200 disabled:text-gray-500 px-4 py-2 rounded-md w-6/12"
             disabled={!isFieldsValid || response.loading} onClick={() => fetchApiUpdate(formatBodyRequest, setResponse, 'POST', 'http://localhost:3001/api/crypto/btc', login.token)}

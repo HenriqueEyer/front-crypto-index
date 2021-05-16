@@ -1,7 +1,7 @@
-const SelectCurrency = ({arrayCurrency, handleChange}) => {
+const SelectCurrency = ({ arrayCurrency, handleChange }) => {
   return (
     <div className="flex flex-col space-y-2">
-      <label className="pl-3">Moeda</label>
+      <label htmlFor='currency' className="pl-3">Moeda</label>
       <select
         className="p-2 pl-5 bg-white rounded-md border-2 focus:border-2 focus:bg-green-100"
         name="currency"

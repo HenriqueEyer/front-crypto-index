@@ -28,7 +28,7 @@ const Login = () => {
     if (response.data !== '') {
       if (!response.error) {
         localStorage.setItem('token', response.data)
-        setLogin({isLogged: true, token: response.data})
+        setLogin({ isLogged: true, token: response.data })
         setGoRedirect(true)
       } else {
         setMessageError(response.data)
@@ -36,7 +36,6 @@ const Login = () => {
       }
     }
   }, [response.data, response.error, setLogin])
-
   const isFieldsValid = values.password.valid && values.email.valid
   const formatBodyRequest = { email: values.email.value, password: values.password.value }
   if (goRedirect) return <Redirect to='/currency' />
@@ -50,16 +49,16 @@ const Login = () => {
           </h1>
           </div>
           <div className="flex flex-col space-y-2">
-            <label className="pl-3">
+            <label htmlFor="ipt-email" className="pl-3">
               Email
             </label>
-            <input className="p-2 pl-5 rounded-md border-2 focus:border-2 focus:bg-green-100" type='email' name='email' placeholder="Email" value={values.email.value} onChange={handleChange} />
+            <input id="ipt-email" className="p-2 pl-5 rounded-md border-2 focus:border-2 focus:bg-green-100" type='email' name='email' placeholder="Email" value={values.email.value} onChange={handleChange} />
           </div>
           <div className="flex flex-col space-y-2">
-            <label className="pl-3">
+            <label htmlFor="ipt-password" className="pl-3">
               Senha
             </label>
-            <input className="p-2 pl-5 rounded-md border-2 focus:border-2 focus:bg-green-100" type='password' name='password' placeholder="Senha" value={values.password.value} onChange={handleChange} />
+            <input id="ipt-password" className="p-2 pl-5 rounded-md border-2 focus:border-2 focus:bg-green-100" type='password' name='password' placeholder="Senha" value={values.password.value} onChange={handleChange} />
           </div>
           <button className="bg-green-600 text-white hover:opacity-75 focus:ring focus:ring-offset-1 focus:ring-indigo-300 focus:outline-none disabled:bg-gray-200 disabled:text-gray-500 px-4 py-2 rounded-md w-6/12"
             disabled={!isFieldsValid || response.loading} onClick={() => fetchApiLogin(formatBodyRequest, setResponse, 'POST', 'http://localhost:3001/api/login')}
