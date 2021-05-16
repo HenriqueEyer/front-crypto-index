@@ -13,11 +13,11 @@ const SelectCurrency = ({ arrayCurrency, handleChange }) => {
             <option key={item} value={item}>
               {item}
             </option>
-          );
+          )
         })}
       </select>
     </div>
-  );
-};
+  )
+}
 
 export default SelectCurrency

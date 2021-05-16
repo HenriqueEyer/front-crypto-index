@@ -1,11 +1,11 @@
-import React from 'react';
-import { cleanup, fireEvent, render, waitForElementToBeRemoved } from '@testing-library/react';
-import fetchMock from 'fetch-mock';
+import React from 'react'
+import { cleanup, fireEvent, render, waitForElementToBeRemoved } from '@testing-library/react'
+import fetchMock from 'fetch-mock'
 import { createMemoryHistory } from 'history'
 import { Provider } from '../context'
 import { MemoryRouter, Router } from "react-router-dom"
-import App from '../App';
-import 'jest-localstorage-mock';
+import App from '../App'
+import 'jest-localstorage-mock'
 
 
 jest.mock('react-router-dom', () => {
@@ -14,7 +14,7 @@ jest.mock('react-router-dom', () => {
     ...originalModule,
     BrowserRouter: ({ children }) => (<div> {children} </div>),
   }
-});
+})
 
 function renderWithRouter(
   ui,
@@ -23,7 +23,7 @@ function renderWithRouter(
   return {
     ...render(<Router history={history}>{ui}</Router>),
     history,
-  };
+  }
 }
 
 
@@ -169,11 +169,11 @@ describe('Currency Page', () => {
     expect(getByText('R$ 20.000,00')).toBeInTheDocument()
     const inputBTC = getByText('BTC').nextSibling
     fireEvent.change(inputBTC, { target: { value: 'a' } })
-    expect(inputBTC.value).toBe('0');
+    expect(inputBTC.value).toBe('0')
     fireEvent.change(inputBTC, { target: { value: '2' } })
-    expect(inputBTC.value).toBe('2');
+    expect(inputBTC.value).toBe('2')
     fireEvent.change(inputBTC, { target: { value: '-2' } })
-    expect(inputBTC.value).toBe('0');
+    expect(inputBTC.value).toBe('0')
   })
 
   test('should check link to page of updates', async () => {

@@ -1,11 +1,11 @@
-import React from 'react';
-import { waitFor, cleanup, fireEvent, render, waitForElementToBeRemoved } from '@testing-library/react';
-import fetchMock from 'fetch-mock';
+import React from 'react'
+import { waitFor, cleanup, fireEvent, render, waitForElementToBeRemoved } from '@testing-library/react'
+import fetchMock from 'fetch-mock'
 import { createMemoryHistory } from 'history'
 import { Provider } from '../context'
 import { MemoryRouter, Router } from "react-router-dom"
-import App from '../App';
-import 'jest-localstorage-mock';
+import App from '../App'
+import 'jest-localstorage-mock'
 
 jest.mock('react-router-dom', () => {
   const originalModule = jest.requireActual('react-router-dom')
@@ -13,7 +13,7 @@ jest.mock('react-router-dom', () => {
     ...originalModule,
     BrowserRouter: ({ children }) => (<div> {children} </div>),
   }
-});
+})
 
 function renderWithRouter(
   ui,
@@ -22,7 +22,7 @@ function renderWithRouter(
   return {
     ...render(<Router history={history}>{ui}</Router>),
     history,
-  };
+  }
 }
 
 

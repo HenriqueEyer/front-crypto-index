@@ -1,10 +1,10 @@
-import React from 'react';
-import { cleanup, render } from '@testing-library/react';
+import React from 'react'
+import { cleanup, render } from '@testing-library/react'
 import { createMemoryHistory } from 'history'
 import { Provider } from '../context'
 import { MemoryRouter, Router } from "react-router-dom"
-import App from '../App';
-import 'jest-localstorage-mock';
+import App from '../App'
+import 'jest-localstorage-mock'
 
 
 jest.mock('react-router-dom', () => {
@@ -13,7 +13,7 @@ jest.mock('react-router-dom', () => {
     ...originalModule,
     BrowserRouter: ({ children }) => (<div> {children} </div>),
   }
-});
+})
 
 function renderWithRouter(
   ui,
@@ -22,7 +22,7 @@ function renderWithRouter(
   return {
     ...render(<Router history={history}>{ui}</Router>),
     history,
-  };
+  }
 }
 
 
@@ -43,5 +43,5 @@ describe('Currency Page', () => {
   test('should "/" renders Homepage', () => {
     const { getByText } = renderHome()
     expect(getByText('Bem vindos - CRYPTO INDEX')).toBeInTheDocument()
-  });
+  })
 })

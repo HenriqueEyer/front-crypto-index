@@ -1,14 +1,14 @@
 import { useContext, useEffect, useState } from 'react'
 import { CurrencyContext } from '../../context'
-import MessageNotLogged from '../../components/message-not-logged'
+import MessageNotLogged from '../../components/MessageNotLogged'
 import { Link, Redirect } from 'react-router-dom'
 import { useForm } from '../../hooks/useForm'
 import { fetchApiUpdate } from '../../service/fetchApi'
-import ActualCurruency from '../../components/actual-currency'
-import Loading from '../../components/loading'
-import MessageError from '../../components/message-error'
-import NotificationError from '../../components/notification-error'
-import SelectedCurrency from '../../components/select-currency'
+import ActualCurruency from '../../components/ActualCurrency'
+import Loading from '../../components/Loading'
+import MessageError from '../../components/MessageError'
+import NotificationError from '../../components/NotificationError'
+import SelectedCurrency from '../../components/SelectCurrency'
 
 const initialValues = {
   currency: {
