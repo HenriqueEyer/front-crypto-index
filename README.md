@@ -1,70 +1,53 @@
-# Getting Started with Create React App
+# Fron-End-Crypto
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Bem vindo ao Projeto Front-End-Crypto - Desafio - Full-Stack-Trybe
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## INTRODUÇÃO
 
-### `npm start`
+O projeto é uma aplicação de cotação de BitCoin, consome a API construida no [backend do desafio](https://github.com/HenriqueEyer/back-end-crypto) que mostra a cotação de 4 moedas em BitCoin. Cálculo é feito de acordo com o valor do dólar para cada moeda, necessário modificar manualmente por meio da página de update.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+---
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### Executando o projeto
 
-### `npm test`
+Para executar o projeto, basta seguir os seguintes passos:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+1. Navegue para o local onde o projeto será clonado e execute o comando `git@github.com:HenriqueEyer/back-end-crypto.git`;
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+2. Execute o comando `cd front-end-crypto`;
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+3. Instale as dependências utilizando o comando `npm install`;
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+4. Inicialize o projeto com `npm start`;
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+---
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### Testes
 
-## Learn More
+Os testes desenvolvidos utilizam o rtl.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Os testes abrangem todas as regras de negócio do projeto, não se restringindo a julgar a qualidade apenas pela cobertura de linhas.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Para rodar os testes, utilize `npm test a`.
 
-### Code Splitting
+Para ver a cobertura de testes, utilize o comando `npm run test:coverage`.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### Tecnologia Usadas:
 
-### Analyzing the Bundle Size
+[React](https://reactjs.org/docs/getting-started.html)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+[Tailwind](https://tailwindcss.com/docs)
 
-### Making a Progressive Web App
+[RTL](https://jestjs.io/docs/getting-started) - testes da aplicação
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+[fetch-mock](https://www.npmjs.com/package/fetch-mock), [node-fetch](https://www.npmjs.com/package/node-fetch),[fetch-mock-jest](https://www.npmjs.com/package/jest-fetch-mock) - para realizar request fetch e mock para os testes.
 
-### Advanced Configuration
+[jest-localstorage-mock](https://www.npmjs.com/package/jest-localstorage-mock)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### Por Henrique Eyer. [LINKEDIN](https://www.linkedin.com/in/henriqueeyer)
