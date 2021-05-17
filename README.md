@@ -26,6 +26,9 @@ Para executar o projeto, basta seguir os seguintes passos:
 
 4. Inicialize o projeto com `npm start`;
 
+
+5. Não se esqueça de rodar a aplicação de [Back-end](https://github.com/HenriqueEyer/back-end-crypto). Se ela não estiver rodando, você não conseguirá acessar todas as páginas e nem conseguirá realizar o Login!
+
 ---
 
 ### Testes
