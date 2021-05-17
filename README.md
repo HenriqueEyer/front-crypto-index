@@ -1,4 +1,4 @@
-# Fron-End-Crypto
+# Front-End-Crypto
 
 Bem vindo ao Projeto Front-End-Crypto - Desafio - Full-Stack-Trybe
 
