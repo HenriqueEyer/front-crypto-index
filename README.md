@@ -15,10 +15,10 @@ O projeto é uma aplicação de cotação de BitCoin, consome a API construida n
 Para executar o projeto, basta seguir os seguintes passos:
 
 
-1. Navegue para o local onde o projeto será clonado e execute o comando `git@github.com:HenriqueEyer/back-end-crypto.git`;
+1. Navegue para o local onde o projeto será clonado e execute o comando `git@github.com:HenriqueEyer/front-crypto-index.git`;
 
 
-2. Execute o comando `cd front-end-crypto`;
+2. Execute o comando `cd front-crypto-index`;
 
 
 3. Instale as dependências utilizando o comando `npm install`;
