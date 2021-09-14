@@ -44,9 +44,9 @@ const Login: React.FC = () => {
 
   return (
     <div className="background-page">
-      <div className="w-full max-w-md">
+      <div className="w-full max-w-screen-lg">
         <div className="center-secondary-div space-login-page">
-          <div className="text-title title">
+          <div className="text-title position-title">
             <h1 className="gradient-color-blue-white">
               Bitcoins
             </h1>
@@ -54,15 +54,15 @@ const Login: React.FC = () => {
           <p className="sub-title m-4">
             Faça login para verificar os valores dos bitcoins
           </p>
-          <div>
-            {(!values.email.valid && values.email.value.length > 2) ? <h3 className="text-white text-xs">Email inválido - (email@email.com)</h3> : null}
+          <div className="w-full max-w-sm">
+            {(!values.email.valid && values.email.value.length > 2) ? <h3 className="message-error-input">Email inválido - (email@email.com)</h3> : null}
             <input id="ipt-email" className="inputs" aria-label="Email" type='email' name='email' placeholder="Email" value={values.email.value} onChange={handleChange} />
           </div>
-          <div>
-            {(!values.password.valid && values.password.value.length > 5) ? <h3 className="text-white text-xs">Password inválido</h3> : null}
+          <div className="w-full max-w-sm">
+            {(!values.password.valid && values.password.value.length > 5) ? <h3 className="message-error-input">Password inválido</h3> : null}
             <input id="ipt-password" className="inputs" aria-label="Senha" type='password' name='password' placeholder="Senha" value={values.password.value} onChange={handleChange} />
           </div>
-          <button className="button-white w-6/12"
+          <button className="button-white max-w-lg"
             disabled={!isFieldsValid || response.loading} onClick={() => fetchApiLogin(formatBodyRequest, setResponse, 'POST', 'http://localhost:3001/api/login')}
           >
             {response.loading ? 'Carregando' : 'Entrar'}
