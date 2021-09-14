@@ -95,7 +95,7 @@ describe('Update Page', () => {
       status: 200
     })
     const { getByText } = renderUpdateCurrency()
-    await waitForElementToBeRemoved(getByText('Carregando!'))
+    await waitForElementToBeRemoved(getByText('Carregando...'))
     await expect(getByText('Novo Valor')).toBeInTheDocument()
   })
 
@@ -116,7 +116,7 @@ describe('Update Page', () => {
       status: 401
     })
     const { getByText } = renderUpdateCurrency()
-    await waitForElementToBeRemoved(getByText('Carregando!'))
+    await waitForElementToBeRemoved(getByText('Carregando...'))
     await expect(getByText('Página Login')).toBeInTheDocument()
   })
 
@@ -127,7 +127,7 @@ describe('Update Page', () => {
       status: 404
     })
     const { getByText } = renderUpdateCurrency()
-    await waitForElementToBeRemoved(getByText('Carregando!'))
+    await waitForElementToBeRemoved(getByText('Carregando...'))
     await expect(getByText('Erro inesperado, favor tentar mais tarde ou realizar o login novamente!')).toBeInTheDocument()
   })
 
@@ -137,7 +137,7 @@ describe('Update Page', () => {
       throws: { message: 'network error' }
     })
     const { getByText } = renderUpdateCurrency()
-    await waitForElementToBeRemoved(getByText('Carregando!'))
+    await waitForElementToBeRemoved(getByText('Carregando...'))
     await expect(getByText('Serviço indisponível, tentar novamente ou outro horário!')).toBeInTheDocument()
   })
 
@@ -148,7 +148,7 @@ describe('Update Page', () => {
       status: 200
     })
     const { getByText } = renderUpdateCurrency()
-    await waitForElementToBeRemoved(getByText('Carregando!'))
+    await waitForElementToBeRemoved(getByText('Carregando...'))
     fireEvent.click(getByText('Voltar'))
     expect(getByText('Atualizar valor monetário')).toBeInTheDocument()
   })
@@ -164,7 +164,7 @@ describe('Update Page', () => {
       status: 200
     }, { overwriteRoutes: false })
     const { getByText } = renderUpdateCurrency()
-    await waitForElementToBeRemoved(getByText('Carregando!'))
+    await waitForElementToBeRemoved(getByText('Carregando...'))
     const btnAtualizar = getByText('Atualizar')
     fireEvent.click(btnAtualizar)
     await expect(getByText('Carregando')).toBeInTheDocument()
@@ -183,7 +183,7 @@ describe('Update Page', () => {
     }, { overwriteRoutes: false })
 
     const { getByText, queryByText } = renderUpdateCurrency()
-    await waitForElementToBeRemoved(getByText('Carregando!'))
+    await waitForElementToBeRemoved(getByText('Carregando...'))
     const btnAtualizar = getByText('Atualizar')
     fireEvent.click(btnAtualizar)
     await waitFor(() => expect(getByText('Serviço indisponível favor tentar mais tarde!')).toBeInTheDocument())
@@ -202,7 +202,7 @@ describe('Update Page', () => {
     }, { overwriteRoutes: false })
 
     const { getByText, queryByText } = renderUpdateCurrency()
-    await waitForElementToBeRemoved(getByText('Carregando!'))
+    await waitForElementToBeRemoved(getByText('Carregando...'))
     const btnAtualizar = getByText('Atualizar')
     fireEvent.click(btnAtualizar)
     await waitFor(() => expect(getByText('Invalido token')).toBeInTheDocument())
@@ -221,7 +221,7 @@ describe('Update Page', () => {
     }, { overwriteRoutes: false })
 
     const { getByText, getByLabelText } = renderUpdateCurrency()
-    await waitForElementToBeRemoved(getByText('Carregando!'))
+    await waitForElementToBeRemoved(getByText('Carregando...'))
     const btnAtualizar = getByText('Atualizar')
     const iptValue = getByLabelText('Novo Valor')
     fireEvent.change(iptValue, { target: { value: 'a' } })

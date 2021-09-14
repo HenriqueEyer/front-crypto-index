@@ -5,7 +5,7 @@ const getActualCurrency = (currencies, selectValue) => {
 }
 
 const ActualCurruency = ({ currencies, selectValue }) => (
-  <div>
+  <div className="text-white">
     {`Valor Atual: ${getActualCurrency(currencies, selectValue)}`}
   </div>
 )

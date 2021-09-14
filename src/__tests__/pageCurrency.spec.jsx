@@ -95,7 +95,7 @@ describe('Currency Page', () => {
       status: 200
     })
     const { getByText } = renderCurrency()
-    await waitForElementToBeRemoved(getByText('Carregando!'))
+    await waitForElementToBeRemoved(getByText('Carregando...'))
     await expect(getByText('Atualizar valor monetário')).toBeInTheDocument()
   })
 
@@ -116,7 +116,7 @@ describe('Currency Page', () => {
       status: 401
     })
     const { getByText } = renderCurrency()
-    await waitForElementToBeRemoved(getByText('Carregando!'))
+    await waitForElementToBeRemoved(getByText('Carregando...'))
     await expect(getByText('Página Login')).toBeInTheDocument()
   })
 
@@ -126,7 +126,7 @@ describe('Currency Page', () => {
       throws: { message: 'network error' }
     })
     const { getByText } = renderCurrency()
-    await waitForElementToBeRemoved(getByText('Carregando!'))
+    await waitForElementToBeRemoved(getByText('Carregando...'))
     await expect(getByText('Serviço indisponível, tentar novamente ou outro horário!')).toBeInTheDocument()
   })
 
@@ -137,7 +137,7 @@ describe('Currency Page', () => {
       status: 200
     })
     const { getByText } = renderCurrency()
-    await waitForElementToBeRemoved(getByText('Carregando!'))
+    await waitForElementToBeRemoved(getByText('Carregando...'))
     expect(getByText(bodyMock.bpi.CAD.code)).toBeInTheDocument()
     expect(getByText('R$ 20.000,00')).toBeInTheDocument()
   })
@@ -149,10 +149,10 @@ describe('Currency Page', () => {
       status: 200
     })
     const { getByText } = renderCurrency()
-    await waitForElementToBeRemoved(getByText('Carregando!'))
+    await waitForElementToBeRemoved(getByText('Carregando...'))
     expect(getByText(bodyMock.bpi.CAD.code)).toBeInTheDocument()
     expect(getByText('R$ 20.000,00')).toBeInTheDocument()
-    const inputBTC = getByText('BTC').nextSibling
+    const inputBTC = getByText('Quantidade de BTC:').nextSibling
     fireEvent.change(inputBTC, { target: { value: 10 } })
     expect(getByText('R$ 200.000,00')).toBeInTheDocument()
   })
@@ -164,10 +164,10 @@ describe('Currency Page', () => {
       status: 200
     })
     const { getByText } = renderCurrency()
-    await waitForElementToBeRemoved(getByText('Carregando!'))
+    await waitForElementToBeRemoved(getByText('Carregando...'))
     expect(getByText(bodyMock.bpi.CAD.code)).toBeInTheDocument()
     expect(getByText('R$ 20.000,00')).toBeInTheDocument()
-    const inputBTC = getByText('BTC').nextSibling
+    const inputBTC = getByText('Quantidade de BTC:').nextSibling
     fireEvent.change(inputBTC, { target: { value: 'a' } })
     expect(inputBTC.value).toBe('0')
     fireEvent.change(inputBTC, { target: { value: '2' } })
@@ -183,7 +183,7 @@ describe('Currency Page', () => {
       status: 200
     })
     const { getByText } = renderCurrency()
-    await waitForElementToBeRemoved(getByText('Carregando!'))
+    await waitForElementToBeRemoved(getByText('Carregando...'))
     fireEvent.click(getByText('Atualizar valor monetário'))
     expect(getByText('Novo Valor')).toBeInTheDocument()
   })

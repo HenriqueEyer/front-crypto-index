@@ -36,31 +36,27 @@ const Login = () => {
       }
     }
   }, [response.data, response.error, setLogin])
+
   const isFieldsValid = values.password.valid && values.email.valid
   const formatBodyRequest = { email: values.email.value, password: values.password.value }
+
   if (goRedirect) return <Redirect to='/currency' />
+
   return (
-    <div className="flex h-screen items-center justify-center align-center bg-gray-200">
+    <div className="flex font-mono h-screen items-center justify-center align-center bg-black">
       <div className="w-full max-w-md">
-        <div className="flex flex-col items-center space-y-7 px-5 sm:px-10 md:px-20 py-14 mb-36 bg-white rounded-md">
-          <div className="text-gray-800 text-2xl w-full flex justify-center border-b-2 py-2 mb-4">
-            <h1>
-              Login
-          </h1>
+        <div className="flex flex-col items-center space-y-7 px-5 sm:px-10 md:px-20 py-14 mb-36 rounded-md">
+          <div className="text-white text-5xl leading-normal w-4/5 flex justify-center border-b-2 py-2">
+            <h1 className="font-extrabold text-transparent bg-clip-text bg-gradient-to-b from-white to-blue-300">
+              Bitcoins
+            </h1>
           </div>
-          <div className="flex flex-col space-y-2">
-            <label htmlFor="ipt-email" className="pl-3">
-              Email
-            </label>
-            <input id="ipt-email" className="p-2 pl-5 rounded-md border-2 focus:border-2 focus:bg-green-100" type='email' name='email' placeholder="Email" value={values.email.value} onChange={handleChange} />
-          </div>
-          <div className="flex flex-col space-y-2">
-            <label htmlFor="ipt-password" className="pl-3">
-              Senha
-            </label>
-            <input id="ipt-password" className="p-2 pl-5 rounded-md border-2 focus:border-2 focus:bg-green-100" type='password' name='password' placeholder="Senha" value={values.password.value} onChange={handleChange} />
-          </div>
-          <button className="bg-green-600 text-white hover:opacity-75 focus:ring focus:ring-offset-1 focus:ring-indigo-300 focus:outline-none disabled:bg-gray-200 disabled:text-gray-500 px-4 py-2 rounded-md w-6/12"
+          <p className="text-white text-1xl w-8/10 leading-tight font-mono">
+            Faça login para verificar os valores dos bitcoins
+          </p>
+          <input id="ipt-email" className="w-full p-2 pl-5 rounded-md border-2 focus:outline-none" aria-label="Email" type='email' name='email' placeholder="Email" value={values.email.value} onChange={handleChange} />
+          <input id="ipt-password" className="w-full p-2 pl-5 rounded-md border-2 focus:outline-none" aria-label="Senha" type='password' name='password' placeholder="Senha" value={values.password.value} onChange={handleChange} />
+          <button className="bg-white text-black hover:opacity-70 focus:ring focus:ring-offset-1 focus:ring-indigo-300 focus:outline-none disabled:bg-gray-200 disabled:text-gray-500 px-4 py-2 rounded-md w-6/12"
             disabled={!isFieldsValid || response.loading} onClick={() => fetchApiLogin(formatBodyRequest, setResponse, 'POST', 'http://localhost:3001/api/login')}
           >
             {response.loading ? 'Carregando' : 'Entrar'}

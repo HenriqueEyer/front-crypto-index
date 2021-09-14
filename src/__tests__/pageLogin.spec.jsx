@@ -85,15 +85,15 @@ describe('Login Page', () => {
       </Provider>
     )
     const { getByText } = container
-    const linkLogin = getByText('Login')
+    const linkLogin = getByText('Bitcoins')
     fireEvent.click(linkLogin)
     return container
   }
 
   test('should render page Login', () => {
     const { getByText } = renderLogin()
-    expect(getByText('Login')).toBeInTheDocument()
-    expect(getByText('Login').tagName).toBe('H1')
+    expect(getByText('Bitcoins')).toBeInTheDocument()
+    expect(getByText('Bitcoins').tagName).toBe('H1')
   })
 
   test('should button start disabled', () => {
@@ -161,7 +161,7 @@ describe('Login Page', () => {
     expect(btn.disabled).toBe(false)
     fireEvent.click(btn)
     await expect(getByText('Carregando')).toBeInTheDocument()
-    await waitForElementToBeRemoved(getByText('Login'))
+    await waitForElementToBeRemoved(getByText('Bitcoins'))
     expect(queryByText('Login')).not.toBeInTheDocument()
     expect(setItemSpy).toHaveBeenCalledWith('token', 'any_token')
   })
