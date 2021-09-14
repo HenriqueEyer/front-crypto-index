@@ -187,4 +187,16 @@ describe('Currency Page', () => {
     fireEvent.click(getByText('Atualizar valor monetário'))
     expect(getByText('Novo Valor')).toBeInTheDocument()
   })
+
+  test('should check button of logout works', async () => {
+    jest.spyOn(localStorage, 'getItem').mockReturnValue('Valido')
+    fetchMock.mock('http://localhost:3001/api/crypto/btc', {
+      body: bodyMock,
+      status: 200
+    })
+    const { getByText } = renderCurrency()
+    await waitForElementToBeRemoved(getByText('Carregando...'))
+    fireEvent.click(getByText('Sair'))
+    expect(getByText('Favor realizar o Login para acessar os dados!')).toBeInTheDocument()
+  })
 })

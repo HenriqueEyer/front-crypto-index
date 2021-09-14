@@ -1,6 +1,16 @@
 import { Link } from "react-router-dom"
+import { StatusError } from "../Interfaces/interface"
 
-const formatMessage = ({ status, message }) => {
+interface ReturnFormatMessage{
+  message: string,
+  redirectLogin: boolean
+}
+
+interface AppProps {
+  error: StatusError
+}
+
+const formatMessage = ({ status, message }: StatusError ):ReturnFormatMessage => {
   if (status === 401) {
     return {
       message: 'Token de acesso inválido, favor realizar login!',
@@ -19,15 +29,16 @@ const formatMessage = ({ status, message }) => {
   }
 }
 
-const MessageError = ({ error }) => {
+
+const MessageError: React.FC<AppProps>  = ({ error }) => {
   const { message, redirectLogin } = formatMessage(error)
   return (
-    <div className="flex h-screen items-center justify-center align-center bg-gray-200">
+    <div className="background-page">
       <div className="w-auto h-auto">
-        <div className="flex w-full flex-col items-center space-y-7 px-5 sm:px-10 md:px-20 py-14 mb-36 bg-white rounded-md">
+        <div className="center-secondary-div px-5 sm:px-10 md:px-20 py-14 mb-36 bg-white rounded-md">
           <p>{message}</p>
           {redirectLogin
-            ? <Link className="text-center rounded-md p-2 w-6/12 bg-green-100 hover:bg-green-500" to="/login"> Página Login </Link>
+            ? <Link className="link-button-blue px-8" to="/login"> Página Login </Link>
             : null}
         </div>
       </div>

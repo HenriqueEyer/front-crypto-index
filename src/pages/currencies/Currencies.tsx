@@ -5,12 +5,13 @@ import { Link } from 'react-router-dom'
 import Currency from '../../components/Currency'
 import Loading from '../../components/Loading'
 import MessageError from '../../components/MessageError'
+import ButtonLogout from '../../components/ButtonLogout'
 
-const Curriencies = () => {
+const Curriencies: React.FC = () => {
   const { currencies, error, loading, login } = useContext(CurrencyContext)
-  const [amount, setAmount] = useState(1)
+  const [amount, setAmount] = useState<number>(1)
 
-  const handleAmount = (e) => {
+  const handleAmount = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target
     if (Number(value) && Number(value) >= 0) {
       setAmount(Number(value))
@@ -24,20 +25,21 @@ const Curriencies = () => {
   if (error.isExist) return <MessageError error={error} />
   const arrayCurrency = ['USD', 'BRL', 'EUR', 'CAD']
   return (
-    <div className="flex h-screen items-center justify-center align-center bg-black text-white">
-      <div className="flex w-full flex-col items-center space-y-7 px-5 sm:px-10 md:px-20 py-14 mb-36 rounded-md">
-        <Link className="rounded-md py-2 px-8 border hover:bg-white hover:text-black" to='/currency/update'>Atualizar valor monetário</Link>
+    <div className="background-page text-white">
+      <div className="sub-div-currencies">
+        <Link className="button-black-white text-center" to='/currency/update'>Atualizar valor monetário</Link>
         <div className="flex flex-col items-center">
           <p>Quantidade de BTC:</p>
-          <input className="p-2 text-center rounded-md border-2 text-black w-3/5" type="Text" onChange={handleAmount} value={amount} />
+          <input className="inputs text-black text-center" type="Text" onChange={handleAmount} value={amount} />
         </div>
-        <div className="rounded-md text-center flex-wrap bg-white w-full sm:w-3/5">
+        <div className="box-white">
           {
             arrayCurrency.map((name) => {
               return <Currency key={name} rate={currencies[name].rate_float} amount={amount} code={name} />
             })
           }
         </div>
+        <ButtonLogout />
       </div>
     </div>
   )

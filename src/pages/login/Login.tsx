@@ -1,12 +1,12 @@
-import { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Redirect } from 'react-router-dom'
 import NotificationError from '../../components/NotificationError'
-import { CurrencyContext } from '../../context'
+import { CurrencyContext } from '../../context/index'
 import { useForm } from '../../hooks/useForm'
+import { StatusRequest } from '../../Interfaces/interface'
 import { fetchApiLogin } from '../../service/fetchApi'
 
-
-const initialValues = {
+const initialValues: any = {
   email: {
     value: '',
     valid: false
@@ -17,12 +17,12 @@ const initialValues = {
   }
 }
 
-const Login = () => {
+const Login: React.FC = () => {
   const { setLogin } = useContext(CurrencyContext)
   const [values, handleChange] = useForm(initialValues)
-  const [response, setResponse] = useState({ data: '', loading: false, error: false })
-  const [goRedirect, setGoRedirect] = useState(false)
-  const [messageError, setMessageError] = useState('')
+  const [response, setResponse] = useState<StatusRequest>({ data: '', loading: false, error: false })
+  const [goRedirect, setGoRedirect] = useState<boolean>(false)
+  const [messageError, setMessageError] = useState<string>('')
 
   useEffect(() => {
     if (response.data !== '') {
@@ -43,20 +43,26 @@ const Login = () => {
   if (goRedirect) return <Redirect to='/currency' />
 
   return (
-    <div className="flex font-mono h-screen items-center justify-center align-center bg-black">
+    <div className="background-page">
       <div className="w-full max-w-md">
-        <div className="flex flex-col items-center space-y-7 px-5 sm:px-10 md:px-20 py-14 mb-36 rounded-md">
-          <div className="text-white text-5xl leading-normal w-4/5 flex justify-center border-b-2 py-2">
-            <h1 className="font-extrabold text-transparent bg-clip-text bg-gradient-to-b from-white to-blue-300">
+        <div className="center-secondary-div space-login-page">
+          <div className="text-title title">
+            <h1 className="gradient-color-blue-white">
               Bitcoins
             </h1>
           </div>
-          <p className="text-white text-1xl w-8/10 leading-tight font-mono">
+          <p className="sub-title m-4">
             Faça login para verificar os valores dos bitcoins
           </p>
-          <input id="ipt-email" className="w-full p-2 pl-5 rounded-md border-2 focus:outline-none" aria-label="Email" type='email' name='email' placeholder="Email" value={values.email.value} onChange={handleChange} />
-          <input id="ipt-password" className="w-full p-2 pl-5 rounded-md border-2 focus:outline-none" aria-label="Senha" type='password' name='password' placeholder="Senha" value={values.password.value} onChange={handleChange} />
-          <button className="bg-white text-black hover:opacity-70 focus:ring focus:ring-offset-1 focus:ring-indigo-300 focus:outline-none disabled:bg-gray-200 disabled:text-gray-500 px-4 py-2 rounded-md w-6/12"
+          <div>
+            {(!values.email.valid && values.email.value.length > 2) ? <h3 className="text-white text-xs">Email inválido - (email@email.com)</h3> : null}
+            <input id="ipt-email" className="inputs" aria-label="Email" type='email' name='email' placeholder="Email" value={values.email.value} onChange={handleChange} />
+          </div>
+          <div>
+            {(!values.password.valid && values.password.value.length > 5) ? <h3 className="text-white text-xs">Password inválido</h3> : null}
+            <input id="ipt-password" className="inputs" aria-label="Senha" type='password' name='password' placeholder="Senha" value={values.password.value} onChange={handleChange} />
+          </div>
+          <button className="button-white w-6/12"
             disabled={!isFieldsValid || response.loading} onClick={() => fetchApiLogin(formatBodyRequest, setResponse, 'POST', 'http://localhost:3001/api/login')}
           >
             {response.loading ? 'Carregando' : 'Entrar'}

@@ -6,7 +6,7 @@ import Curriencies from './pages/currencies/Currencies'
 import UpdateCurriencies from './pages/update/UpdateCurriencies'
 import HomePage from './pages/homepage/HomePage'
 
-function App() {
+function App(): React.ReactNode {
   return (
     <Provider>
       <Router>

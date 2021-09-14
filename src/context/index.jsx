@@ -1,4 +1,4 @@
-import React, { useState, createContext } from 'react'
+import { useState, createContext } from 'react'
 import { useFetch } from '../hooks/useFetch'
 import { useLogin } from '../hooks/useLogin'
 
@@ -7,8 +7,15 @@ const CurrencyContext = createContext()
 const CurrencyProvider = ({ children }) => {
   const [currencies, setCurrencies] = useState()
   const [needUpdate, setNeedUpdate] = useState(false)
+
   const token = localStorage.getItem('token')
+
   const { login, setLogin } = useLogin(token)
+
+  const logout = () => {
+    localStorage.removeItem('token');
+    setLogin({ token: null, isLogged: false});
+  }
 
   const { error, loading } = useFetch(
     'http://localhost:3001/api/crypto/btc',
@@ -26,7 +33,8 @@ const CurrencyProvider = ({ children }) => {
     setNeedUpdate,
     needUpdate,
     login,
-    setLogin
+    setLogin,
+    logout
   }
 
 

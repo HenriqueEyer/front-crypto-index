@@ -1,4 +1,6 @@
-export const fetchApiLogin = (body, setState, method, url) => {
+import { BodyRequest } from "../Interfaces/interface"
+
+export const fetchApiLogin = (body: BodyRequest, setState: React.Dispatch<React.SetStateAction<any>>, method: string, url: string): void => {
   setState({ data: '', loading: true, error: false })
   fetch(url, {
     method,
@@ -24,7 +26,7 @@ export const fetchApiLogin = (body, setState, method, url) => {
     })
 }
 
-export const fetchApiUpdate = (body, setState, method, url, token) => {
+export const fetchApiUpdate = (body: BodyRequest, setState: React.Dispatch<React.SetStateAction<any>>, method: string, url: string, token: string): void => {
   setState({ data: '', loading: true, error: false })
   body.value = Number(body.value)
   fetch(url, {

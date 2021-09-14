@@ -153,7 +153,7 @@ describe('Update Page', () => {
     expect(getByText('Atualizar valor monetário')).toBeInTheDocument()
   })
 
-  test('should check if button start with disabled false and success request redirect to currency page', async () => {
+  test('should check if button start with disabled false and success request show message of success', async () => {
     jest.spyOn(localStorage, 'getItem').mockReturnValue('Valido')
     fetchMock.get('http://localhost:3001/api/crypto/btc', {
       body: bodyMock,
@@ -169,7 +169,7 @@ describe('Update Page', () => {
     fireEvent.click(btnAtualizar)
     await expect(getByText('Carregando')).toBeInTheDocument()
     await waitForElementToBeRemoved(getByText('Novo Valor'))
-    expect(getByText('Atualizar valor monetário')).toBeInTheDocument()
+    expect(getByText('Valor alterado com sucesso')).toBeInTheDocument()
   })
 
   test('should check if show message if fail in fetch api', async () => {
