@@ -1,14 +1,16 @@
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
-import { StatusFetch } from '../Interfaces/interface'
+import { ReturnStatus, StatusFetch } from '../Interfaces/interface'
 
 export const useFetch =
-  (url: string, token: string | null, setCallBack: Dispatch<SetStateAction<any>>, needFetch: boolean, setNeedFetch: Dispatch<SetStateAction<boolean>>) => {
-    
-    const [state, setState] = useState<StatusFetch>({ loading: true, error: false })
+  (url: string, token: string | null, setCallBack: Dispatch<SetStateAction<any>>, needFetch: boolean, setNeedFetch: Dispatch<SetStateAction<boolean>>)
+    : StatusFetch => {
+
+    const [loading, setLoading] = useState<boolean>(false)
+    const [status, setStatus] = useState<ReturnStatus>({ code: null, message: '' })
 
     useEffect(() => {
       if (token && needFetch) {
-        setState({ loading: true, error: false })
+        setLoading(true)
         fetch(url, {
           method: 'GET',
           headers: {
@@ -26,18 +28,16 @@ export const useFetch =
           .then((res) => {
             if (res.status === 200) {
               setCallBack(res.data.bpi)
-              setNeedFetch(false)
-              setState({ loading: false, error: { status: '', message: '', isExist: false } })
-            } else {
-              setState({ loading: false, error: { status: res.status, message: res.data.message, isExist: true } })
-              setNeedFetch(false)
             }
+            setStatus({ code: res.status, message: res.data.message })
           }).catch(() => {
-            setState({ loading: false, error: { status: 500, message: 'Serviço indisponível, tentar novamente ou outro horário!', isExist: true } })
+            setStatus({ code: 500, message: 'Serviço indisponível, tentar novamente ou outro horário!' })
+          }).finally(() => {
             setNeedFetch(false)
+            setLoading(false)
           })
       }
     }, [url, token, setCallBack, needFetch, setNeedFetch])
 
-    return state
+    return { loading, status }
   }

@@ -3,7 +3,7 @@ interface AppProps {
   resetMessage: () => void
 }
 
-const NotificationError: React.FC<AppProps> = ({ resetMessage, message }) =>  {
+const NotificationError: React.FC<AppProps> = ({ resetMessage, message })  =>  {
   return (
     <div className="fixed top-0 flex
     items-center space-x-1 bg-red-500 py-1 

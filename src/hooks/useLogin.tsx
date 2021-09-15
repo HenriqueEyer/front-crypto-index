@@ -2,12 +2,13 @@ import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { StatusLogin } from '../Interfaces/interface'
 
 export const useLogin =
-  (token: string | null): {login: StatusLogin, setLogin: Dispatch<SetStateAction<StatusLogin>>} => {
-  const [login, setLogin] = useState<StatusLogin>({ token: null, isLogged: false })
+  (token: string | null): { login: StatusLogin, setLogin: Dispatch<SetStateAction<StatusLogin>> } => {
 
-  useEffect(() => {
-    setLogin({ token, isLogged: (!token)? false : true })
-  }, [token])
+    const [login, setLogin] = useState<StatusLogin>({ token: null, isLogged: false })
 
-  return { login, setLogin }
-}
+    useEffect(() => {
+      setLogin({ token, isLogged: (!token) ? false : true })
+    }, [token])
+
+    return { login, setLogin }
+  }

@@ -8,13 +8,14 @@ import MessageError from '../../components/MessageError'
 import ButtonLogout from '../../components/ButtonLogout'
 
 const Curriencies: React.FC = () => {
-  const { currencies, error, loading, login } = useContext(CurrencyContext)
+  const { currencies, status, loading, login } = useContext(CurrencyContext)
   const [amount, setAmount] = useState<number>(1)
 
   const handleAmount = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target
-    if (Number(value) && Number(value) >= 0) {
-      setAmount(Number(value))
+    const number = Number(value) || null
+    if (number && number >= 0) {
+      setAmount(number)
     } else {
       setAmount(0)
     }
@@ -22,8 +23,10 @@ const Curriencies: React.FC = () => {
 
   if (!login.isLogged) return <MessageNotLogged />
   if (loading) return <Loading />
-  if (error.isExist) return <MessageError error={error} />
+  if (status.code !== 200) return <MessageError status={status} />
+  
   const arrayCurrency = ['USD', 'BRL', 'EUR', 'CAD']
+
   return (
     <div className="background-page text-white">
       <div className="sub-div-currencies">

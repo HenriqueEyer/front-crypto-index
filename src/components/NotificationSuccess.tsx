@@ -2,7 +2,7 @@ interface AppProps {
   hideMessage: () => void
 }
 
-const NotificationSuccess: React.FC<AppProps> = ({ hideMessage }) => {
+const NotificationSuccess: React.FC<AppProps> = ({ hideMessage })  => {
   setTimeout(hideMessage, 3000)
   return (
     <div className="notification bg-blue-300 text-black">

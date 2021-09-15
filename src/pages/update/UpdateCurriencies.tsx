@@ -31,7 +31,7 @@ const onHandleValue = (e: React.ChangeEvent<HTMLInputElement>, handleChange: Han
 }
 
 const UpdateCurriencies: React.FC = () => {
-  const { currencies, error, loading, setNeedUpdate, login } = useContext(CurrencyContext)
+  const { currencies, status, loading, setNeedUpdate, login } = useContext(CurrencyContext)
   const [values, handleChange] = useForm(initialValues)
   const [response, setResponse] = useState<StatusRequest>({ data: '', loading: false, error: false })
   const [messageError, setMessageError] = useState<string>('')
@@ -52,9 +52,11 @@ const UpdateCurriencies: React.FC = () => {
     }
   }, [response.data, setNeedUpdate])
 
+  const updateCurrency = (): void => fetchApiUpdate(formatBodyRequest, setResponse, 'POST', 'http://localhost:3001/api/crypto/btc', login.token)
+
   if (!login.isLogged) return <MessageNotLogged />
   if (loading) return <Loading />
-  if (error.isExist) return <MessageError error={error} />
+  if (status.code !== 200 ) return <MessageError status={status} />
 
   return (
     <div className="font-mono background-page">
@@ -66,19 +68,19 @@ const UpdateCurriencies: React.FC = () => {
           <label htmlFor="iptvalue" className="pl-3 text-white">
             Novo Valor
           </label>
-          <input id="iptvalue" className="inputs" type='text' name='value' value={value.value} onChange={(e) => onHandleValue(e, handleChange)} />
+          <input id="iptvalue" className="inputs" type='text' name='value' value={value.value} onChange={(e: React.ChangeEvent<HTMLInputElement>) => onHandleValue(e, handleChange)} />
         </div>
         <button className="button-white w-8/12"
-          disabled={!isFieldsValid || response.loading} onClick={() => fetchApiUpdate(formatBodyRequest, setResponse, 'POST', 'http://localhost:3001/api/crypto/btc', login.token)}
+          disabled={!isFieldsValid || response.loading} onClick={updateCurrency}
         >
           {response.loading ? 'Carregando' : 'Atualizar'}
         </button>
         <ButtonLogout />
         {messageError
-          ? <NotificationError message={messageError} resetMessage={() => setMessageError('')} />
+          ? <NotificationError message={messageError} resetMessage={(): void => setMessageError('')} />
           : null}
         {showMessage && !loading
-          ? <NotificationSuccess hideMessage={() => setShowMessage(false)} />
+          ? <NotificationSuccess hideMessage={(): void => setShowMessage(false)} />
           : null}
       </div>
     </div>

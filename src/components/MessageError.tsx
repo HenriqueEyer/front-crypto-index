@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import { StatusError } from "../Interfaces/interface"
+import { ReturnStatus } from "../Interfaces/interface"
 
 interface ReturnFormatMessage{
   message: string,
@@ -7,17 +7,17 @@ interface ReturnFormatMessage{
 }
 
 interface AppProps {
-  error: StatusError
+  status: ReturnStatus
 }
 
-const formatMessage = ({ status, message }: StatusError ):ReturnFormatMessage => {
-  if (status === 401) {
+const formatMessage = ({ code, message }: ReturnStatus ):ReturnFormatMessage => {
+  if (code === 401) {
     return {
       message: 'Token de acesso inválido, favor realizar login!',
       redirectLogin: true
     }
   }
-  if (status === 500) {
+  if (code === 500) {
     return {
       message,
       redirectLogin: false
@@ -30,8 +30,8 @@ const formatMessage = ({ status, message }: StatusError ):ReturnFormatMessage =>
 }
 
 
-const MessageError: React.FC<AppProps>  = ({ error }) => {
-  const { message, redirectLogin } = formatMessage(error)
+const MessageError: React.FC<AppProps>  = ({ status })  => {
+  const { message, redirectLogin } = formatMessage(status)
   return (
     <div className="background-page">
       <div className="w-auto h-auto">

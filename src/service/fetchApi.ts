@@ -15,15 +15,11 @@ export const fetchApiLogin = (body: BodyRequest, setState: React.Dispatch<React.
       }
     })
     .then(res => {
-      if (res.status === 200) {
+      res.status === 200 ?
         setState({ data: res.data.token, loading: false, error: false })
-      } else {
-        setState({ data: res.data.message, loading: false, error: true })
-      }
+        : setState({ data: res.data.message, loading: false, error: true })
     })
-    .catch(() => {
-      setState({ data: 'Serviço indisponível favor tentar mais tarde!', loading: false, error: true })
-    })
+    .catch (() => setState({ data: 'Serviço indisponível favor tentar mais tarde!', loading: false, error: true }))
 }
 
 export const fetchApiUpdate = (body: BodyRequest, setState: React.Dispatch<React.SetStateAction<any>>, method: string, url: string, token: string): void => {
@@ -51,3 +47,4 @@ export const fetchApiUpdate = (body: BodyRequest, setState: React.Dispatch<React
       setState({ data: 'Serviço indisponível favor tentar mais tarde!', loading: false, error: true })
     })
 }
+

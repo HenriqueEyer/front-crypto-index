@@ -3,7 +3,7 @@ interface AppProps {
   handleChange: (e: React.ChangeEvent<HTMLSelectElement>) => void
 }
 
-const SelectCurrency: React.FC<AppProps> = ({ arrayCurrency, handleChange }) => {
+const SelectCurrency: React.FC<AppProps> = ({ arrayCurrency, handleChange })  => {
   return (
     <div className="flex flex-col text-white space-y-2">
       <label htmlFor='currency' className="pl-3">Moeda</label>

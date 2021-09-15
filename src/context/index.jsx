@@ -17,7 +17,7 @@ const CurrencyProvider = ({ children }) => {
     setLogin({ token: null, isLogged: false});
   }
 
-  const { error, loading } = useFetch(
+  const { status, loading } = useFetch(
     'http://localhost:3001/api/crypto/btc',
     login.token,
     setCurrencies,
@@ -28,7 +28,7 @@ const CurrencyProvider = ({ children }) => {
   const context = {
     currencies,
     setCurrencies,
-    error,
+    status,
     loading,
     setNeedUpdate,
     needUpdate,

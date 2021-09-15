@@ -9,19 +9,18 @@ export interface FormLogin {
 }
 
 export interface StatusLogin {
-  token: string | null
+  token: null | string
   isLogged: Boolean
 }
 
 export interface StatusFetch {
   loading: boolean
-  error: boolean | null | ReturnError
+  status: null | ReturnStatus
 }
 
-export interface ReturnError {
-  status: string | Number
+export interface ReturnStatus {
+  code: null | number
   message: string
-  isExist: boolean
 }
 
 export interface CurrencyValues {
