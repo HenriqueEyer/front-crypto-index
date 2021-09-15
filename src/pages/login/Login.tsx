@@ -47,7 +47,7 @@ const Login: React.FC = () => {
 
   return (
     <div className="background lg:flex-row lg:items-start bg-white">
-      <div className="top-login w-full lg:w-1/2 p-10 md:pl-40 mt-8 sm:mt-16">
+      <div className="top-login w-full lg:w-1/2 p-10 pt-5 md:pl-40 mt-8 sm:mt-16">
         <h1 className="title bold pb-2 mb-4 text-indigo-500 border-b-2 max-w-xl">
           Login
         </h1>
@@ -78,7 +78,7 @@ const Login: React.FC = () => {
         </ul>
         <img className="mt-20" src={IMAGE_COMPUTER} alt="Ilustração de uma pessoa com um notebook"/>
       </div>
-      <img alt="Imagem para simbolizar o login do usuário" src={IMAGE_LOGIN} className="w-8/12 sm:w-5/12 md:w-3/12 md:left-32 max-w-3xl absolute bottom-10 left-12" />
+      <img alt="Imagem para simbolizar o login do usuário" src={IMAGE_LOGIN} className="w-8/12 sm:w-5/12 md:w-3/12 md:left-32 max-w-3xl absolute bottom-4 left-12 z-0" />
       {messageError
         ? <NotificationError message={messageError} resetMessage={() => setMessageError('')} />
         : null}

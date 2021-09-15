@@ -34,14 +34,12 @@ const MessageError: React.FC<AppProps>  = ({ status })  => {
   const { message, redirectLogin } = formatMessage(status)
   return (
     <div className="background bg-indigo-500 items-center justify-center">
-      <div className="w-auto h-auto">
         <div className="box-information">
           <p>{message}</p>
           {redirectLogin
-            ? <Link className="link-button-blue px-8" to="/login"> Página Login </Link>
+            ? <Link className="button-purple mt-4" to="/login"> Página Login </Link>
             : null}
         </div>
-      </div>
     </div>
   )
 }
