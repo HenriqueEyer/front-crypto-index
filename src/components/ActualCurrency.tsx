@@ -13,7 +13,7 @@ const getActualCurrency = (currencies: Currencies, selectValue: string): string 
 
 const ActualCurruency: React.FC<AppProps> = ({ currencies , selectValue }) => {
   return (
-    <div className="text-white">
+    <div className="text-black">
     {`Valor Atual: ${getActualCurrency(currencies, selectValue)}`}
     </div>
   )

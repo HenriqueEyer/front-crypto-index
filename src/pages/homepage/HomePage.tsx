@@ -1,34 +1,25 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import Navegacao from '../../components/Navegacao'
+import img_crypto from '../../assets/crypto.svg'
 
 const HomePage: React.FC = () => {
   return (
-    <div className="font-mono background-page">
-      <div className="center-secondary-div space-home-page bg-white">
-        <div className="title-home-page">
-          <h1>
-            Bem vindos - CRYPTO INDEX
-          </h1>
-        </div>
-        <div className="column">
-          <p className="pl-3">
-            Pequena aplicação de cotação do bitcoin. Para acessar as informações necessário realizar o Login.
+    <div className="background">
+      <div className="top">
+        <Navegacao />
+        <img className="mt-6 mb-2" alt="Imagem de fundo com grande simbolo do bitcoin" src={img_crypto} />
+        <div className="w-5/6 bg-white rounded-md text-center p-4">
+          <h1 className="text-3xl">Boas Vindas ao <span className="text-indigo-500">BitBitCoin!</span></h1>
+          <p className="text-sm my-2">
+            Nessa aplicação você consiguirá ver a cotação do bitcoin!
           </p>
+          <p className="text-sm mb-4">
+           Para acessar as informações necessário realizar o Login.
+          </p>
+          <Link className="text-xl border-2 border-indigo-500 hover:bg-indigo-500 py-2 px-6 rounded-md" to='/login'>Entrar</Link>
         </div>
-        <div className="column items-center space-y-5">
-          <h2>Páginas</h2>
-          <ul className="column list-buttons-home">
-            <li className="link-button-blue">
-              <Link to='/login'>Login</Link>
-            </li>
-            <li className="link-button-blue">
-              <Link to='/currency'>Cotação</Link>
-            </li>
-            <li className="link-button-blue">
-              <Link to='/currency/update'>Atualizar Dolár</Link>
-            </li>
-          </ul>
-        </div>
+        <span className="mt-3 text-gray-600">Criada por Henrique Eyer.</span>
       </div>
     </div>
   )

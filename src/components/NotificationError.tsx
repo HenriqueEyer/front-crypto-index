@@ -5,9 +5,7 @@ interface AppProps {
 
 const NotificationError: React.FC<AppProps> = ({ resetMessage, message })  =>  {
   return (
-    <div className="fixed top-0 flex
-    items-center space-x-1 bg-red-500 py-1 
-    px-4 text-gray-100">
+    <div className="notification">
       <p>{message}</p>
       <button className="p-3 text-xl" onClick={() =>resetMessage()}>X</button>
     </div>

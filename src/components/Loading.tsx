@@ -1,6 +1,6 @@
 const Loading: React.FC = () =>  {
   return (
-    <div className="flex h-screen items-center justify-center align-center bg-black">
+    <div className="background bg-indigo-500 items-center justify-center">
       <div className="w-auto h-auto">
         <div className="box-information">
           <p>Carregando...</p>

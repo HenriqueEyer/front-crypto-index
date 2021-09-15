@@ -33,9 +33,9 @@ const formatMessage = ({ code, message }: ReturnStatus ):ReturnFormatMessage => 
 const MessageError: React.FC<AppProps>  = ({ status })  => {
   const { message, redirectLogin } = formatMessage(status)
   return (
-    <div className="background-page">
+    <div className="background bg-indigo-500 items-center justify-center">
       <div className="w-auto h-auto">
-        <div className="center-secondary-div px-5 sm:px-10 md:px-20 py-14 mb-36 bg-white rounded-md">
+        <div className="box-information">
           <p>{message}</p>
           {redirectLogin
             ? <Link className="link-button-blue px-8" to="/login"> Página Login </Link>

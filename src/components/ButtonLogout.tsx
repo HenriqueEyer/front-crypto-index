@@ -5,7 +5,7 @@ const ButtonLogout: React.FC = () => {
   const { logout } = useContext(CurrencyContext)
 
   return (
-      <button type="button" onClick={logout} className="button-black-white">
+      <button type="button" onClick={logout} className="button-purple">
         Sair
       </button>
   )

@@ -6,6 +6,8 @@ import Currency from '../../components/Currency'
 import Loading from '../../components/Loading'
 import MessageError from '../../components/MessageError'
 import ButtonLogout from '../../components/ButtonLogout'
+import IMAGE_TRANSFER from '../../assets/transfer.svg'
+
 
 const Curriencies: React.FC = () => {
   const { currencies, status, loading, login } = useContext(CurrencyContext)
@@ -24,25 +26,31 @@ const Curriencies: React.FC = () => {
   if (!login.isLogged) return <MessageNotLogged />
   if (loading) return <Loading />
   if (status.code !== 200) return <MessageError status={status} />
-  
+
   const arrayCurrency = ['USD', 'BRL', 'EUR', 'CAD']
 
   return (
-    <div className="background-page text-white">
-      <div className="sub-div-currencies">
-        <Link className="button-black-white text-center" to='/currency/update'>Atualizar valor monetário</Link>
-        <div className="flex flex-col items-center">
-          <p>Quantidade de BTC:</p>
-          <input className="inputs text-black text-center" type="Text" onChange={handleAmount} value={amount} />
+    <div className="background bg-indigo-500 items-center">
+      <div className="h-1/2">
+        <div className="flex flex-col w-full h-full justify-center items-center p-6">
+          <p className="text-white text-lg mt-2 mb-2">Quantidade de BTC:</p>
+          <input className="input text-black text-center" type="Text" onChange={handleAmount} value={amount} />
+          <img alt="Duas pessoas trocando dinheiro" className="w-4/5 mt-12 max-w-md" src={IMAGE_TRANSFER} />
         </div>
-        <div className="box-white">
+      </div>
+      <div className="flex flex-col w-full h-1/2 pt-4 px-5 rounded-t-3xl bg-white max-w-lg">
+        <h2>Valores Moedas:</h2>
+        <div className="flex flex-col w-full h-full">
           {
             arrayCurrency.map((name) => {
               return <Currency key={name} rate={currencies[name].rate_float} amount={amount} code={name} />
             })
           }
+          <div className="flex w-full justify-center items-center space-x-4">
+            <Link className="button-purple" to='/currency/update'>Atualizar valor monetário</Link>
+            <ButtonLogout/>
+          </div>
         </div>
-        <ButtonLogout />
       </div>
     </div>
   )

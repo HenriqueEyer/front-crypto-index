@@ -42,6 +42,6 @@ describe('Currency Page', () => {
   }
   test('should "/" renders Homepage', () => {
     const { getByText } = renderHome()
-    expect(getByText('Bem vindos - CRYPTO INDEX')).toBeInTheDocument()
+    expect(getByText('Nessa aplicação você consiguirá ver a cotação do bitcoin!')).toBeInTheDocument()
   })
 })

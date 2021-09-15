@@ -12,6 +12,7 @@ import SelectedCurrency from '../../components/SelectCurrency'
 import { HandleChange, StatusRequest } from '../../Interfaces/interface'
 import ButtonLogout from '../../components/ButtonLogout'
 import NotificationSuccess from '../../components/NotificationSuccess'
+import IMAGE_COIN from '../../assets/coin.svg'
 
 const initialValues = {
   currency: {
@@ -56,21 +57,24 @@ const UpdateCurriencies: React.FC = () => {
 
   if (!login.isLogged) return <MessageNotLogged />
   if (loading) return <Loading />
-  if (status.code !== 200 ) return <MessageError status={status} />
+  if (status.code !== 200) return <MessageError status={status} />
 
   return (
-    <div className="font-mono background-page">
-      <div className="center-secondary-div px-5 py-14 mb-36 box-border sm:px-10 md:px-20">
-        <Link className="button-black-white" to="/currency">Voltar</Link>
+    <div className="background bg-indigo-500 items-center">
+      <div className="h-1/2">
+        <div className="flex flex-col w-full h-full justify-center items-center p-6">
+          <Link className="button-white" to="/currency">Voltar</Link>
+          <img alt="Símbolo do Bitcoin" src={IMAGE_COIN} className="w-3/5 mt-12 max-w-md" />
+        </div>
+      </div>
+      <div className="flex flex-col w-full h-1/2 pt-4 px-5 rounded-t-3xl bg-white max-w-lg text-center">
+        <label htmlFor="iptvalue" className="pl-3 text-black">
+          Novo Valor
+        </label>
+        <input id="iptvalue" className="input" type='text' name='value' value={value.value} onChange={(e: React.ChangeEvent<HTMLInputElement>) => onHandleValue(e, handleChange)} />
         <SelectedCurrency arrayCurrency={arrayCurrency} handleChange={handleChange} />
         <ActualCurruency currencies={currencies} selectValue={currency.value} />
-        <div className="flex flex-col space-y-2">
-          <label htmlFor="iptvalue" className="pl-3 text-white">
-            Novo Valor
-          </label>
-          <input id="iptvalue" className="inputs" type='text' name='value' value={value.value} onChange={(e: React.ChangeEvent<HTMLInputElement>) => onHandleValue(e, handleChange)} />
-        </div>
-        <button className="button-white w-8/12"
+        <button className="button-purple"
           disabled={!isFieldsValid || response.loading} onClick={updateCurrency}
         >
           {response.loading ? 'Carregando' : 'Atualizar'}

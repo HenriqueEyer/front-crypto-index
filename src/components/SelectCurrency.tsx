@@ -5,7 +5,7 @@ interface AppProps {
 
 const SelectCurrency: React.FC<AppProps> = ({ arrayCurrency, handleChange })  => {
   return (
-    <div className="flex flex-col text-white space-y-2">
+    <div className="flex flex-col text-black space-y-2">
       <label htmlFor='currency' className="pl-3">Moeda</label>
       <select
         className="p-2 pl-5 text-black bg-white rounded-md border-2 focus:border-2 focus:outline-none"
